@@ -1,8 +1,11 @@
 <?php
-// api.php - penghubung e-modul dengan database MySQL (cPanel)
-// Ubah 4 nilai di $cfg sesuai database cPanel kamu.
-$cfg = ['host' => 'localhost', 'db' => 'NAMA_DATABASE', 'user' => 'USER_DATABASE', 'pass' => 'PASSWORD_DATABASE'];
-// Ganti '*' dengan alamat situs e-modulmu agar hanya situs itu yang boleh memanggil API ini.
+// api.php - penghubung e-modul dengan database MySQL (Docker / cPanel)
+$cfg = [
+    'host' => getenv('DB_HOST') ?: 'db',
+    'db'   => getenv('DB_DATABASE') ?: 'flipbook',
+    'user' => getenv('DB_USERNAME') ?: 'flipbook',
+    'pass' => getenv('DB_PASSWORD') ?: 'flipbook_secret',
+];
 $allowOrigin = '*';
 
 header('Content-Type: application/json; charset=utf-8');

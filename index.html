@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Modul Gamifikasi Canva AI | DKV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-hover: #293548;
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --accent: #06b6d4;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+    .header {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+      background: radial-gradient(circle at top, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+      border-bottom: 1px solid var(--border);
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(99, 102, 241, 0.2);
+      color: var(--primary-light);
+      margin-bottom: 1rem;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.lead {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.75rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      background: var(--card-hover);
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -10px rgba(99, 102, 241, 0.25);
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .chapter-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 0.375rem;
+      background: #0f172a;
+      color: var(--accent);
+      border: 1px solid #334155;
+    }
+    .icon {
+      font-size: 1.5rem;
+    }
+    .card h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary-light);
+    }
+    .card:hover .card-footer {
+      color: #ffffff;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="badge">E-Modul Interaktif DKV</div>
+    <h1>Soal & Gamifikasi Canva AI</h1>
+    <p class="lead">Pilih modul pembelajaran di bawah ini untuk memulai latihan kuis dan game interaktif sesuai silabus Canva AI.</p>
+  </header>
+
+  <main>
+    <div class="grid">
+      <!-- Bab 1 -->
+      <a href="bab%201/" class="card">
+        <div class="card-top">
+          <span class="chapter-pill">BAB 1</span>
+          <span class="icon">✨</span>
+        </div>
+        <h2>Pengenalan Canva AI</h2>
+        <p>Dasar-dasar asisten kreatif berbasis AI, prinsip prompt, etika desainer DKV, serta kuis dan game penyocokan alat.</p>
+        <div class="card-footer">
+          <span>Buka Modul</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- Bab 2 -->
+      <a href="bab%202/" class="card">
+        <div class="card-top">
+          <span class="chapter-pill">BAB 2</span>
+          <span class="icon">🛠️</span>
+        </div>
+        <h2>Bengkel Prompt</h2>
+        <p>Teknik menyusun prompt Canva AI yang efektif, anatomi perintah visual, perbaikan prompt, dan latihan interaktif.</p>
+        <div class="card-footer">
+          <span>Buka Modul</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- Bab 3 -->
+      <a href="bab%203/" class="card">
+        <div class="card-top">
+          <span class="chapter-pill">BAB 3</span>
+          <span class="icon">🌐</span>
+        </div>
+        <h2>Pembuatan Website</h2>
+        <p>Prinsip desain web, SEO, struktur konten, dan gamifikasi interaktif untuk pengujian pemahaman konsep situs.</p>
+        <div class="card-footer">
+          <span>Buka Modul</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- Bab 4 -->
+      <a href="bab%204/" class="card">
+        <div class="card-top">
+          <span class="chapter-pill">BAB 4</span>
+          <span class="icon">🎬</span>
+        </div>
+        <h2>Studio Timeline</h2>
+        <p>Antarmuka editor video Canva, manajemen layer (main track & upper track), audio sync, dan penyusunan klip multimedia.</p>
+        <div class="card-footer">
+          <span>Buka Modul</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- Bab 5 -->
+      <a href="bab%205/" class="card">
+        <div class="card-top">
+          <span class="chapter-pill">BAB 5</span>
+          <span class="icon">🏆</span>
+        </div>
+        <h2>Evaluasi & Gamifikasi</h2>
+        <p>Stasiun tantangan komprehensif 1–4, kuis evaluasi materi menyeluruh, serta sistem pencatatan progres siswa.</p>
+        <div class="card-footer">
+          <span>Buka Modul</span>
+          <span>→</span>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>E-Modul Flipbook Canva AI &bull; Host: <code>flipbook.yaumalatsal.com</code></p>
+  </footer>
+</body>
+</html>

@@ -1,6 +1,11 @@
 <?php
-// Ubah 4 nilai ini sesuai database di cPanel.
-$DB = ['host' => 'localhost', 'name' => 'NAMA_DATABASE', 'user' => 'USER_DATABASE', 'pass' => 'PASSWORD_DATABASE'];
+// api.php - penghubung e-modul Bab 5 dengan database MySQL (Docker / cPanel)
+$DB = [
+    'host' => getenv('DB_HOST') ?: 'db',
+    'name' => getenv('DB_DATABASE') ?: 'flipbook',
+    'user' => getenv('DB_USERNAME') ?: 'flipbook',
+    'pass' => getenv('DB_PASSWORD') ?: 'flipbook_secret',
+];
 
 header('Content-Type: application/json; charset=utf-8');
 function out($a, $c = 200) { http_response_code($c); echo json_encode($a, JSON_UNESCAPED_UNICODE); exit; }

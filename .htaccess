@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Allow direct access to existing files and directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Clean redirects for chapter routes
+RewriteRule ^bab[-_]?1/?$ bab\ 1/ [L,QSA]
+RewriteRule ^bab[-_]?2/?$ bab\ 2/ [L,QSA]
+RewriteRule ^bab[-_]?3/?$ bab\ 3/ [L,QSA]
+RewriteRule ^bab[-_]?4/?$ bab\ 4/ [L,QSA]
+RewriteRule ^bab[-_]?5/?$ bab\ 5/ [L,QSA]

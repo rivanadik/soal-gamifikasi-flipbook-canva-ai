@@ -1,0 +1,54 @@
+services:
+  app:
+    image: ${APP_IMAGE:-ghcr.io/rivanadik/soal-gamifikasi-flipbook-canva-ai:latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flipbook-app
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8085:80"
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=${DB_DATABASE:-flipbook}
+      - DB_USERNAME=${DB_USERNAME:-flipbook}
+      - DB_PASSWORD=${DB_PASSWORD:-flipbook_secret}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1/health.php || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  db:
+    image: mysql:8.4
+    container_name: flipbook-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-flipbook}
+      MYSQL_USER: ${DB_USERNAME:-flipbook}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-flipbook_secret}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_flipbook_secret}
+    command:
+      - --innodb-buffer-pool-size=32M
+      - --performance-schema=OFF
+      - --innodb-log-buffer-size=4M
+      - --max-connections=25
+      - --host-cache-size=0
+    volumes:
+      - flipbook-db-data:/var/lib/mysql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    expose:
+      - "3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 25s
+
+volumes:
+  flipbook-db-data:
