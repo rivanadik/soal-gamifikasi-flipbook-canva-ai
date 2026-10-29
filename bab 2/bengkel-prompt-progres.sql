@@ -9,7 +9,7 @@ CREATE TABLE siswa (
   id        INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nama      VARCHAR(40) NOT NULL,
   dibuat_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  -- collation _ci membuat "Rivan" dan "rivan" dianggap sama
+  -- collation _ci membuat "Dimas" dan "dimas" dianggap sama
   UNIQUE KEY uq_siswa_nama (nama),
   -- tolak angka, simbol, dan spasi ganda
   CONSTRAINT ck_nama_huruf CHECK (
@@ -82,7 +82,7 @@ FROM siswa s
 ORDER BY s.nama;
 
 -- Contoh pemakaian
--- CALL daftar_siswa('Rivan Adi');
+-- CALL daftar_siswa('Dimas Pratama');
 -- INSERT INTO hasil_kuis (siswa_id, skor, lencana) VALUES (1, 90, 'Emas');
 -- INSERT INTO hasil_game (siswa_id, level1, level2, level3, lencana) VALUES (1, 36, 25, 30, 'Perak');
 -- SELECT * FROM v_rekap_guru;

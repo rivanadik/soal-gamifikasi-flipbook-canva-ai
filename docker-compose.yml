@@ -1,6 +1,6 @@
 services:
   app:
-    image: ${APP_IMAGE:-ghcr.io/rivanadik/soal-gamifikasi-flipbook-canva-ai:latest}
+    image: ${APP_IMAGE:-flipbook-canva-ai:latest}
     build:
       context: .
       dockerfile: Dockerfile
