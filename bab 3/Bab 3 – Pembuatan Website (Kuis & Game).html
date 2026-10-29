@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Bab 3 – Pembuatan Website</title>
+<style>
+:root{--p:#1E5AA8;--a:#FFC83D;--bg:#EEF4FC;--card:#fff;--t:#14233a;--ok:#1b8a4b;--no:#c62f2f;--line:#c9d8ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--p:#3b7ddd;--bg:#0e1726;--card:#18253a;--t:#eaf1fb;--line:#2d4263}}
+:root[data-theme="dark"]{--p:#3b7ddd;--bg:#0e1726;--card:#18253a;--t:#eaf1fb;--line:#2d4263}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:17px/1.5 "Nunito","Trebuchet MS",system-ui,sans-serif}
+#app{max-width:640px;margin:0 auto;padding:14px}h1{font-size:25px;margin:0 0 6px}h2{font-size:20px;margin:6px 0 10px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:16px;margin:10px 0}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:16px;padding:12px 18px;min-height:48px}
+input{width:100%;padding:14px;border:2px solid var(--line);border-radius:14px;background:var(--bg);color:var(--t);margin:8px 0}
+.big{display:block;width:100%;margin:14px 0;padding:28px 16px;font-size:23px;font-weight:800;background:var(--p);color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.25)}.big.y{background:var(--a);color:#1b1b1b}.big:disabled{opacity:.5}
+.pri{background:var(--p);color:#fff;font-weight:700}.ghost{background:transparent;color:var(--p);border:2px solid var(--p);padding:8px 14px;min-height:44px;font-weight:700}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.who{font-weight:800}.sm{font-size:16px;margin:6px 0}
+.bar{height:14px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--a);transition:width .4s}
+.op{display:flex;gap:10px;width:100%;text-align:left;margin:8px 0;background:var(--bg);border:2px solid var(--line);color:var(--t)}
+.op b{background:var(--p);color:#fff;border-radius:10px;min-width:30px;text-align:center;align-self:flex-start}
+.op.ok{border-color:var(--ok);background:rgba(27,138,75,.18);animation:pop .4s}.op.ok:disabled{opacity:1}.op.bad{border-color:var(--no);animation:shake .4s}.op:disabled{opacity:.6}
+.msg{border-radius:14px;padding:10px 14px;margin-top:10px;font-weight:600}.msg.h{background:rgba(255,200,61,.3)}.msg.g{background:rgba(27,138,75,.18)}.msg.r{background:rgba(198,47,47,.14)}
+.slot{border:2px dashed var(--p);border-radius:14px;padding:10px;margin:6px 0;min-height:52px}.slot.f{border-style:solid;border-color:var(--ok);background:rgba(27,138,75,.14)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.chip{background:var(--a);color:#1b1b1b;font-weight:700;padding:10px 14px;min-height:44px}.chip.sel{outline:4px solid var(--p)}
+.root{background:var(--p);color:#fff;border-radius:14px;padding:10px;text-align:center;font-weight:800}.tree{border-left:4px solid var(--p);margin:0 0 0 20px;padding-left:12px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}.row button{flex:1 1 140px;background:var(--bg);border:2px solid var(--line);color:var(--t)}.row button.ok{border-color:var(--ok);background:rgba(27,138,75,.18)}
+.site{border:2px solid var(--line);border-radius:14px;background:#fff;color:#222;padding:10px;font-family:Georgia,serif}.pt{padding:6px;border-radius:8px;cursor:pointer;margin:4px 0}.pt.found{outline:3px solid var(--ok);background:#e5f6ec}
+.medal{font-size:70px;animation:pop .6s}.score{font-size:28px;font-weight:800;margin:4px 0}textarea{width:100%;height:150px;font-size:14px;background:var(--bg);color:var(--t);border:2px solid var(--line);border-radius:12px;padding:8px}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.06)}100%{transform:scale(1)}}@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body><div id="app"></div>
+<script>
+const Q=[
+{q:'Website paling tepat diartikan sebagai ….',o:['aplikasi untuk menyunting foto','kumpulan halaman yang saling terhubung dan diakses melalui alamat (URL) pada peramban','program untuk menulis dokumen','media penyimpanan data dalam komputer','perangkat keras untuk mencetak desain'],a:1,t:'Pengertian website',h:'Website bukan alat atau perangkat. Ia dibuka lewat alamat di peramban.',e:'Website adalah kumpulan halaman yang saling terhubung dan dibuka lewat URL di peramban.'},
+{q:'Bagian website yang berisi daftar tautan untuk berpindah antarhalaman adalah ….',o:['footer','favicon','kode QR','menu navigasi','hak cipta'],a:3,t:'Bagian-bagian website',h:'Cari bagian yang membantu pengunjung berpindah halaman.',e:'Menu navigasi memuat tautan agar pengunjung bisa berpindah antarhalaman.'},
+{q:'Diagram yang menggambarkan susunan halaman dan hubungan antarhalaman pada website disebut ….',o:['peta situs (sitemap)','palet warna','moodboard','diagram batang','alur kerja cetak'],a:0,t:'Peta situs (sitemap)',h:'Diagram ini bicara soal susunan halaman, bukan warna atau gambar inspirasi.',e:'Peta situs menunjukkan susunan dan hubungan antarhalaman.'},
+{q:'Website yang berisi kumpulan karya desainer untuk memperkenalkan kemampuannya adalah website ….',o:['toko daring','berita','portofolio','acara','forum diskusi'],a:2,t:'Jenis website',h:'Bayangkan tempat desainer memamerkan hasil karyanya.',e:'Website portofolio memuat karya untuk memperkenalkan kemampuan desainer.'},
+{q:'Pada editor website Canva, fitur yang digunakan untuk menambah halaman baru adalah ….',o:['Magic Resize','Brand Kit','Add section','Preview','Add page'],a:4,t:'Fitur editor website Canva',h:'Nama fitur ini artinya “tambah halaman” dalam bahasa Inggris.',e:'Add page dipakai untuk menambah halaman baru di editor website Canva.'},
+{q:'Prompt yang paling tepat untuk membuat beranda website profil jurusan DKV adalah ….',o:['“Buat website yang bagus.”','“Buat beranda website profil jurusan DKV untuk calon siswa, judul “Jurusan DKV”, ada tombol “Lihat Karya”, gaya modern, warna biru dan putih.”','“Beranda biru.”','“Tolong buatkan sesuatu untuk sekolah.”','“Website keren dan menarik.”'],a:1,t:'Menulis prompt Canva AI',h:'Prompt yang baik menyebut halaman, sasaran, judul, tombol, gaya, dan warna.',e:'Pilihan B paling lengkap: ada tujuan, sasaran, judul, tombol, gaya, dan warna.'},
+{q:'Agar muncul dengan baik pada hasil pencarian, deskripsi halaman website sebaiknya memiliki panjang sekitar ….',o:['10–20 karakter','30–50 karakter','60–90 karakter','150–160 karakter','500–600 karakter'],a:3,t:'Deskripsi halaman (SEO)',h:'Jangan terlalu pendek, tetapi juga jangan terlalu panjang sampai terpotong.',e:'Deskripsi sekitar 150–160 karakter tampil baik di hasil pencarian.'},
+{q:'Untuk melihat tampilan website pada ponsel sebelum dipublikasikan, pengguna dapat ….',o:['memakai pratinjau mobile pada editor','mencetak seluruh halaman','menghapus menu navigasi','mengganti nama website','menambah jumlah halaman'],a:0,t:'Uji tampilan ponsel',h:'Cari cara melihat hasil khusus layar ponsel tanpa menerbitkannya dulu.',e:'Pratinjau mobile menunjukkan tampilan di ponsel sebelum publikasi.'},
+{q:'Pengguna akun gratis Canva yang mempublikasikan website akan mendapati bahwa website tersebut memuat ….',o:['kata sandi otomatis','domain berbayar','footer “Designed with Canva” yang tidak dapat dihapus','iklan produk lain','tampilan khusus ponsel saja'],a:2,t:'Batasan akun gratis Canva',h:'Ada tanda kecil di bagian paling bawah halaman yang menyebut alat pembuatnya.',e:'Akun gratis menampilkan footer “Designed with Canva” yang tidak bisa dihapus.'},
+{q:'Sebelum mempublikasikan website melalui Canva Education, siswa harus lebih dahulu ….',o:['membeli domain baru','menghapus seluruh gambar','mengunduh website sebagai video','menghubungi mesin pencari','mendapat persetujuan guru'],a:4,t:'Aturan publikasi Canva Education',h:'Ini soal izin: siapa yang harus setuju sebelum karyamu tayang?',e:'Di Canva Education, siswa harus mendapat persetujuan guru sebelum mempublikasikan.'}];
+const app=document.getElementById('app'),$=s=>app.querySelector(s),$$=s=>[...app.querySelectorAll(s)];
+const LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let users=LS.get('dkv3u',{}),me=LS.get('dkv3me',null),G;
+const save=()=>{LS.set('dkv3u',users);LS.set('dkv3me',me)},key=n=>n.trim().replace(/\s+/g,' ').toLowerCase();
+const sh=a=>{a=[...a];for(let i=a.length;i>1;){const j=Math.random()*i--|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const el=h=>{app.innerHTML=h;scrollTo(0,0)};
+const head=()=>`<div class=top><button class=ghost id=back>← Kembali ke menu</button><span class=who>${users[me].name}</span></div>`;
+const wire=()=>{const b=$('#back');if(b)b.onclick=menu};
+const put=h=>{el(h);wire()};
+function login(){el(`<div class=card><h1>Bab 3 – Pembuatan Website</h1><p>Tulis namamu agar progresmu tersimpan.</p><input id=nm maxlength=30 autocomplete=off placeholder="Nama (huruf saja)"><div id=er class=msg style="display:none"></div><button class="big" id=go disabled>Masuk</button><p class=sm>Hanya huruf dan spasi. Angka dan simbol tidak diterima. Satu nama hanya boleh dipakai satu orang.</p></div>`);
+const i=$('#nm'),b=$('#go'),er=$('#er');
+const chk=()=>{const v=i.value.trim().replace(/\s+/g,' ');let m='';
+if(v&&!/^\p{L}+(?: \p{L}+)*$/u.test(v))m='Nama hanya boleh berisi huruf. Hapus angka atau simbol.';
+else if(v.length==1)m='Nama minimal 2 huruf.';
+else if(users[key(v)])m='Nama ini sudah dipakai. Tambahkan nama lain agar berbeda.';
+er.style.display=m?'block':'none';er.className='msg r';er.textContent=m;b.disabled=v.length<2||!!m;return v};
+i.oninput=chk;i.onkeydown=e=>{if(e.key=='Enter')b.click()};
+b.onclick=()=>{const v=chk();if(b.disabled)return;users[key(v)]={name:v};me=key(v);save();menu()}}
+function menu(){const u=users[me],s=k=>u[k]?`<div class=sm>Skor terbaik: ${u[k].best} · ${u[k].badge}</div>`:'';
+el(`<div class=top><span class=who>Halo, ${u.name}!</span></div><div class=card><h1>Bab 3 – Pembuatan Website</h1><p>Pilih kegiatanmu hari ini.</p></div><button class="big" id=bk>📝 Kuis${s('kuis')}</button><button class="big y" id=bg>🏗️ Game: Arsitek Website${s('game')}</button>`);
+$('#bk').onclick=quiz;$('#bg').onclick=()=>{G={l1:0,l2:0,l3:0,r:[]};g1()}}
+function done(kind,sc,rev){rev=[...new Set(rev)];const b=sc<60?['Perunggu','🥉']:sc<85?['Perak','🥈']:['Emas','🥇'],u=users[me],o=u[kind]||{};
+u[kind]={score:sc,badge:b[0],review:rev,best:Math.max(o.best||0,sc)};save();
+const sql=`INSERT IGNORE INTO siswa(nama) VALUES ('${u.name}');\nINSERT INTO progres(siswa_id,bab,jenis,skor,lencana,materi_ulang) SELECT id,3,'${kind}',${sc},'${b[0]}','${rev.join('; ').replace(/'/g,"''")}' FROM siswa WHERE nama='${u.name}' ON DUPLICATE KEY UPDATE skor=VALUES(skor),lencana=VALUES(lencana),materi_ulang=VALUES(materi_ulang),percobaan=percobaan+1;`;
+put(head()+`<div class=card style="text-align:center"><div class=medal>${b[1]}</div><h1>Lencana ${b[0]}</h1><div class=score>Skor: ${sc}/100</div><p>${u.name} · ${new Date().toLocaleDateString('id-ID')}</p><b>Tunjukkan layar ini ke gurumu</b></div><div class=card><h2>Materi yang masih perlu diulang</h2>${rev.length?'<ul>'+rev.map(x=>`<li>${x}</li>`).join('')+'</ul>':'<p>🎉 Semua materi sudah kuat. Kerja bagus!</p>'}</div><button class="big y" id=again>Ulangi</button><details class=card><summary>Data untuk database (guru)</summary><textarea readonly>${sql}</textarea></details>`);
+$('#again').onclick=kind=='kuis'?quiz:()=>{G={l1:0,l2:0,l3:0,r:[]};g1()}}
+function quiz(){const ord=sh(Q.map((_,i)=>i));let i=0,sc=0,rev=[];
+const show=()=>{const q=Q[ord[i]];let t=0,over=0;
+put(head()+`<div class=bar><i style="width:${i*10}%"></i></div><p class=sm>Soal ${i+1} dari 10</p><div class=card><h2>${q.q}</h2>`+q.o.map((x,k)=>`<button class=op data-k=${k}><b>${'ABCDE'[k]}</b><span>${x}</span></button>`).join('')+`<div id=fb></div></div>`);
+const fb=$('#fb'),ops=$$('.op');
+const next=()=>{fb.insertAdjacentHTML('beforeend',`<button class=pri id=nx style="margin-top:10px">${i<9?'Lanjut':'Lihat hasil'}</button>`);$('#nx').onclick=()=>{i++;i<10?show():done('kuis',sc,rev)}};
+ops.forEach(b=>b.onclick=()=>{if(over)return;const k=+b.dataset.k;
+if(k==q.a){over=1;const p=t?5:10;sc+=p;if(t)rev.push(q.t);b.classList.add('ok');b.firstChild.textContent='✔';ops.forEach(o=>o.disabled=true);fb.innerHTML=`<div class="msg g">Benar! +${p} poin. ${q.e}</div>`;next()}
+else{t++;b.classList.add('bad');b.disabled=true;
+if(t==1)fb.innerHTML=`<div class="msg h">Belum tepat. Petunjuk: ${q.h} Coba sekali lagi!</div>`;
+else{over=1;rev.push(q.t);ops.forEach(o=>o.disabled=true);ops[q.a].classList.add('ok');fb.innerHTML=`<div class="msg r">Jawaban yang benar: ${'ABCDE'[q.a]}. ${q.e}</div>`;next()}}})};show()}
+function dnd(drop){let sel=null;const pick=c=>{sel=c;$$('.chip').forEach(x=>x.classList.toggle('sel',x.dataset.id==c))};
+$$('.chip').forEach(c=>{c.draggable=true;c.onclick=()=>pick(c.dataset.id);c.ondragstart=e=>{e.dataTransfer.setData('text/plain',c.dataset.id);pick(c.dataset.id)}});
+$$('.slot').forEach(s=>{s.onclick=()=>sel&&drop(sel,s.dataset.sid);s.ondragover=e=>e.preventDefault();s.ondrop=e=>{e.preventDefault();drop(e.dataTransfer.getData('text/plain'),s.dataset.sid)}})}
+function g1(){const C=[['url','Alamat (URL)','Kotak di bilah paling atas peramban'],['hal','Halaman','Seluruh layar yang sedang dibuka'],['nav','Menu navigasi','Deretan tombol di bagian header'],['kon','Konten','Area utama berisi teks dan gambar'],['tau','Tautan','Teks bergaris bawah yang bisa diklik di dalam isi'],['foo','Footer','Bagian paling bawah halaman']],ord=sh(C);
+let pl={},m={},pts=0,msg=['',''];
+const draw=()=>{const fin=Object.keys(pl).length==6;
+put(head()+`<h2>Level 1 – Bedah Halaman</h2><p>Ketuk satu komponen, lalu ketuk kotak yang cocok. Boleh juga diseret.</p><div class=card>`+C.map((c,i)=>`<div class="slot ${pl[c[0]]?'f':''}" data-sid=${c[0]}>${i+1}. ${pl[c[0]]?'✔ <b>'+c[1]+'</b>':c[2]}</div>`).join('')+`</div><div class=chips>`+ord.filter(c=>!pl[c[0]]).map(c=>`<button class=chip data-id=${c[0]}>${c[1]}</button>`).join('')+`</div>${msg[1]?`<div class="msg ${msg[0]}">${msg[1]}</div>`:''}${fin?`<button class="big y" id=nx>Lanjut ke Level 2 (nilai: ${Math.round(pts)}/30)</button>`:''}`);
+dnd(drop);if(fin)$('#nx').onclick=()=>{G.l1=Math.round(pts);g2()}};
+const drop=(id,sid)=>{if(!id||pl[sid]||pl[id])return;const c=C.find(x=>x[0]==id),n=C.findIndex(x=>x[0]==sid)+1;
+if(id==sid){pl[id]=1;pts+=m[id]?2.5:5;msg=['g','Benar!']}
+else{m[id]=(m[id]||0)+1;if(m[id]>1){pl[id]=1;G.r.push('Bagian halaman web: '+c[1]);msg=['r',`${c[1]} seharusnya di kotak nomor ${C.findIndex(x=>x[0]==id)+1}.`]}else msg=['h','Belum tepat. Petunjuk: baca lagi tulisan di tiap kotak. Coba sekali lagi!']}
+draw()};draw()}
+function g2(){const P=['Beranda','Tentang Jurusan','Karya Siswa','Galeri','Kontak'],ord=sh([...P,'Resep Masakan','Harga Pulsa']),
+LB={'Beranda':['Beranda','Halaman pertama yang akan dibuka oleh pengunjung'],'Tentang Jurusan':['Tentang','Klik di sini jika kamu ingin tahu lebih banyak tentang jurusan kami'],'Karya Siswa':['Karya','Lihat semua hasil karya kami di sini'],'Galeri':['Galeri','Kumpulan foto kegiatan sekolah kami yang seru'],'Kontak':['Kontak','Silakan klik untuk menghubungi kami lewat berbagai cara']};
+let sl=[],m={},off={},pts=0,msg=['',''],lm={},step=1,lo={};P.forEach(p=>lo[p]=sh(LB[p]));
+const draw=()=>{if(step==1){put(head()+`<h2>Level 2 – Peta Situs</h2><p>Topik: Profil Jurusan DKV. Susun halaman yang cocok ke dalam peta situs.</p><div class=card><div class=root>Profil Jurusan DKV</div><div class=tree>`+[0,1,2,3,4].map(i=>`<div class="slot ${sl[i]?'f':''}" data-sid=${i}>${sl[i]?'✔ '+sl[i]:'Halaman '+(i+1)+' (kosong)'}</div>`).join('')+`</div></div><div class=chips>`+ord.filter(c=>!sl.includes(c)&&!off[c]).map(c=>`<button class=chip data-id="${c}">${c}</button>`).join('')+`</div>${msg[1]?`<div class="msg ${msg[0]}">${msg[1]}</div>`:''}`);dnd(drop)}
+else{const fin=sl.every(p=>lm[p]&&lm[p].d);put(head()+`<h2>Level 2 – Label Menu</h2><p>Pilih label menu yang singkat dan jelas untuk tiap halaman.</p>`+sl.map(p=>`<div class=card><b>${p}</b><div class=row>`+lo[p].map((t,k)=>`<button data-p="${p}" data-k=${k} class="${lm[p]&&lm[p].d&&t==LB[p][0]?'ok':''}">${t}</button>`).join('')+`</div></div>`).join('')+`${msg[1]?`<div class="msg ${msg[0]}">${msg[1]}</div>`:''}${fin?`<button class="big y" id=nx>Lanjut ke Level 3 (nilai: ${Math.round(pts)}/30)</button>`:''}`);
+$$('[data-p]').forEach(b=>b.onclick=()=>{const p=b.dataset.p,s=lm[p]=lm[p]||{t:0,d:0};if(s.d)return;
+if(lo[p][+b.dataset.k]==LB[p][0]){s.d=1;pts+=s.t?1:2;msg=['g','Benar! Label menu yang baik itu pendek dan jelas.']}
+else{s.t++;if(s.t>1){s.d=1;G.r.push('Label menu: '+p);msg=['r',`Label yang tepat: “${LB[p][0]}”. Label menu sebaiknya singkat.`]}else msg=['h','Belum tepat. Petunjuk: menu harus mudah dibaca sekilas, bukan kalimat panjang.']}draw()});
+if(fin)$('#nx').onclick=()=>{G.l2=Math.round(pts);g3()}}};
+const drop=(id,sid)=>{if(!id||sl.length>4||sl[+sid]||sl.includes(id))return;
+if(P.includes(id)){sl[sl.length]=id;pts+=m[id]?2:4;msg=['g','Tepat! Halaman ini ada di peta situs.']}
+else{m[id]=(m[id]||0)+1;if(m[id]>1){off[id]=1;G.r.push('Memilih halaman sesuai topik peta situs');msg=['r',`“${id}” adalah kartu pengecoh. Topiknya tidak berhubungan dengan profil jurusan DKV.`]}else msg=['h','Belum tepat. Petunjuk: apakah kartu ini membantu calon siswa mengenal jurusan DKV? Coba kartu lain!']}
+if(sl.length==5){step=2;msg=['','']}draw()};draw()}
+function g3(){const I=[['Tautan rusak','Tautan menuju halaman yang tidak ada (404). Alamatnya harus diperbaiki.','Periksa teks yang bisa diklik.'],['Kontras teks rendah','Teks abu-abu muda sulit dibaca di latar putih.','Cari tulisan yang sulit dibaca.'],['Huruf terlalu kecil','Huruf sekecil ini tidak terbaca di ponsel.','Cari tulisan yang sangat mungil.'],['Menu tidak konsisten','Nama menu di footer berbeda dari menu di header.','Bandingkan menu atas dan menu bawah.'],['Data pribadi terpampang','Nomor HP dan alamat rumah tidak boleh dipublikasikan.','Cari informasi yang bersifat pribadi.'],['Isi tidak sesuai','Resep masakan tidak cocok untuk website profil jurusan DKV.','Cari isi yang tidak nyambung dengan topiknya.']];
+let f=new Set(),hint=0,wr=0;
+put(head()+`<h2>Level 3 – Uji Sebelum Terbit</h2><p>Ketuk bagian website yang bermasalah. Ada 6 masalah. Petunjuk maksimal 3 kali.</p><div class=site>
+<div class=pt style="display:flex;justify-content:space-between;gap:8px;font-weight:700;flex-wrap:wrap"><span>DKV Kreatif</span><span>Beranda · Tentang · Karya · Kontak</span></div>
+<div class=pt><h3 style="margin:2px 0">Selamat datang di Jurusan DKV</h3></div>
+<p class=pt data-i=1 style="color:#cfcfcf">Kami belajar desain grafis, video, dan animasi dengan cara yang seru.</p>
+<p class=pt data-i=5><b>Resep Nasi Goreng Spesial:</b> siapkan nasi, bawang, kecap, dan telur.</p>
+<p class=pt data-i=0><a style="color:#1E5AA8;text-decoration:underline">Lihat Karya Siswa →</a> <small style="color:#c00">(404 – halaman tidak ditemukan)</small></p>
+<p class=pt data-i=2 style="font-size:9px">Syarat pendaftaran: siswa baru membawa fotokopi rapor dan surat keterangan sehat.</p>
+<p class=pt data-i=4>Narasumber: Bu Sari · HP 0812-3456-7890 · Alamat rumah: Jl. Melati 5, Malang</p>
+<div class=pt data-i=3 style="border-top:1px solid #ccc;font-size:15px">Home · About · Gallery · Contact</div></div>
+<div id=ms></div><div class=row><button id=hb style="background:var(--a);color:#1b1b1b;font-weight:700">💡 Petunjuk (3)</button><button class=pri id=fn>Selesai</button></div><div id=fl></div>`);
+const ms=t=>$('#ms').innerHTML=`<div class="msg h">${t}</div>`;
+const upd=()=>$('#fl').innerHTML=f.size?`<div class=card><b>Ditemukan ${f.size} dari 6</b><ul>`+[...f].map(n=>`<li><b>${I[n][0]}.</b> ${I[n][1]}</li>`).join('')+`</ul></div>`:'';
+$('.site').onclick=e=>{const p=e.target.closest('.pt');if(!p)return;const n=p.dataset.i;
+if(n===undefined){wr++;return ms('Bagian ini sudah baik. Coba cari lagi!')}
+if(f.has(+n))return;f.add(+n);p.classList.add('found');upd();ms(f.size==6?'Hebat! Semua masalah ditemukan. Ketuk “Selesai”.':'Benar! Cari yang lain.')};
+$('#hb').onclick=()=>{if(hint>=3)return;const n=[...I.keys()].find(k=>!f.has(k));if(n===undefined)return;hint++;ms('Petunjuk '+hint+': '+I[n][2]);$('#hb').textContent='💡 Petunjuk ('+(3-hint)+')'};
+$('#fn').onclick=()=>{G.l3=Math.max(0,Math.round(f.size*40/6)-hint*2-Math.min(wr,4));I.forEach((x,k)=>{if(!f.has(k))G.r.push('Uji website: '+x[0])});done('game',Math.min(100,G.l1+G.l2+G.l3),G.r)}}
+me&&users[me]?menu():login();
+</script></body></html>

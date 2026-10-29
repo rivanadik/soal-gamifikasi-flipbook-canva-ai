@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bengkel Prompt – Bab 2 Teknik Prompt Canva AI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;700;800&display=swap">
+<style>
+:root{--kertas:#F2F5FB;--kartu:#fff;--teks:#0F2347;--redup:#4A5878;--tombol:#1E5AA8;--kuning:#FFC93C;--hijau:#1F9D55;--merah:#C73A28;--garis:#C9D3E6;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--kertas:#0C1730;--kartu:#16264A;--teks:#EAF0FC;--redup:#A9B8D6;--garis:#2C4172;--merah:#FF8A78}}
+:root[data-theme="dark"]{--kertas:#0C1730;--kartu:#16264A;--teks:#EAF0FC;--redup:#A9B8D6;--garis:#2C4172;--merah:#FF8A78}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--kertas);background-image:radial-gradient(var(--garis) 1px,transparent 1.5px);background-size:22px 22px;color:var(--teks);font:17px/1.5 Nunito,system-ui,sans-serif}
+#app{max-width:520px;margin:0 auto;padding:12px 16px 40px}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:3px solid #E08A00;outline-offset:3px}
+.kembali{border:0;background:none;color:var(--teks);font:700 16px Nunito,sans-serif;padding:10px 0;min-height:44px}
+.judul{font:800 34px/1.1 'Baloo 2',Nunito,sans-serif;margin:8px 0}
+.sub,.kecil{color:var(--redup);font-size:16px;margin:4px 0}
+.besar{display:block;width:100%;min-height:68px;border:0;border-radius:18px;background:var(--tombol);color:#fff;font:800 22px 'Baloo 2',Nunito,sans-serif;margin:14px 0;padding:12px 18px;text-align:left;box-shadow:0 5px 0 #123E78}
+.besar span{display:block;font:600 16px Nunito,sans-serif}
+.besar.kuning{background:var(--kuning);color:#0F2347;box-shadow:0 5px 0 #C9971A}
+.besar:disabled{opacity:.45;box-shadow:none}
+.tipis{background:none;border:2px solid var(--garis);border-radius:12px;color:var(--teks);min-height:48px;padding:0 16px;font:700 16px Nunito,sans-serif;margin-top:8px}
+label{font-weight:800;display:block;margin:18px 0 6px}
+input{width:100%;min-height:58px;font:700 22px Nunito,sans-serif;border:3px solid var(--tombol);border-radius:14px;padding:0 14px;background:var(--kartu);color:var(--teks)}
+.err{color:var(--merah);min-height:26px;font-weight:700;margin:6px 0}
+.chips{display:flex;gap:4px;margin:8px 0 2px}
+.chips i{flex:1;height:14px;border-radius:4px;background:var(--garis)}
+.chips i.on{background:var(--tombol)}.chips i.cur{background:var(--kuning)}
+.tanya{font:800 22px/1.3 'Baloo 2',Nunito,sans-serif;margin:12px 0}
+.op{display:flex;gap:12px;align-items:center;width:100%;min-height:58px;margin:8px 0;padding:8px 12px;border:2px solid var(--garis);border-radius:14px;background:var(--kartu);color:var(--teks);font:600 17px/1.35 Nunito,sans-serif;text-align:left}
+.op b{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--garis);color:var(--teks)}
+.op:disabled{color:var(--teks);opacity:1}
+.op.benar{border-color:var(--hijau);background:#DDF3E6;color:#0F2347}
+.op.benar b{background:var(--hijau);color:#fff;animation:pop .35s}
+.op.salah{border-color:var(--merah);background:#FBE3DE;color:#0F2347;animation:goyang .4s}
+.fb{border-radius:14px;padding:10px 14px;margin:12px 0;background:var(--kartu);border:2px solid var(--garis)}
+.fb.ok{border-color:var(--hijau)}.fb.petunjuk{border-color:var(--kuning)}
+.fb p{margin:4px 0 6px}
+.kalimat{background:var(--kartu);border:2px dashed var(--tombol);border-radius:16px;padding:12px 14px;line-height:2.4}
+.slot{min-height:42px;min-width:92px;border:2px dashed var(--redup);border-radius:10px;background:transparent;color:var(--redup);font:700 16px Nunito,sans-serif;padding:0 10px;vertical-align:middle}
+.slot.isi{border:2px solid var(--hijau);background:#DDF3E6;color:#0F2347}
+.slot.goyang{animation:goyang .4s}
+#kartu{margin:10px -5px}
+.kartu{min-height:50px;border-radius:12px;border:0;background:var(--kuning);color:#0F2347;font:800 16px Nunito,sans-serif;padding:0 14px;margin:5px}
+.kartu.pilih{outline:4px solid var(--tombol)}.kartu[hidden]{display:none}
+.adu{display:flex;gap:14px;align-items:center;margin:12px 0}
+.poster{width:150px;height:auto;flex:none;border-radius:8px;box-shadow:0 6px 18px rgba(15,35,71,.28)}
+.gel{background:var(--kartu);border:2px solid var(--garis);border-radius:16px 16px 16px 4px;padding:10px 12px;font-weight:700}
+.medali{width:140px;height:140px;border-radius:50%;margin:20px auto 8px;display:grid;place-items:center;font:800 24px 'Baloo 2',Nunito,sans-serif;color:#0F2347;border:8px solid;animation:pop .5s}
+.Emas{background:#FFD65A;border-color:#E0A800}.Perak{background:#E3E8F0;border-color:#9AA6BA}.Perunggu{background:#E8B68A;border-color:#B87333}
+.skor{text-align:center;font:800 64px 'Baloo 2',Nunito,sans-serif;margin:0}.skor small{font-size:24px;color:var(--redup)}
+.skor+.sub{text-align:center}
+.ulang li{margin:4px 0}
+.guru{text-align:center;font:800 20px 'Baloo 2',Nunito,sans-serif;border:3px dashed var(--kuning);border-radius:14px;padding:10px;margin-top:16px}
+@keyframes goyang{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes pop{from{transform:scale(.6)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const $=(s,r=document)=>r.querySelector(s),app=$('#app');
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LS={g(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const SS={g(k){try{return sessionStorage.getItem(k)}catch(e){return null}},s(k,v){try{v==null?sessionStorage.removeItem(k):sessionStorage.setItem(k,v)}catch(e){}}};
+const users=()=>LS.g('bp2_siswa',{});
+let me=null,QZ,GM;
+
+const Q=[
+{q:'Prompt pada Canva AI paling tepat diartikan sebagai ….',o:['kumpulan template desain siap pakai','tombol untuk mengunduh desain','instruksi yang diberikan kepada AI untuk menghasilkan konten','fitur untuk mengatur ukuran halaman','akun yang digunakan untuk masuk ke Canva'],k:2,t:'Pengertian prompt',h:'Prompt adalah sesuatu yang kamu tulis dan berikan kepada AI. Apa yang kamu ketik di kolom Canva AI?',e:'Prompt adalah instruksi tertulis yang kita berikan kepada AI agar menghasilkan konten.'},
+{q:'Prompt “Buatkan poster.” kurang menghasilkan desain yang sesuai terutama karena ….',o:['tidak memuat jenis, tujuan, dan gaya yang jelas','menggunakan bahasa Indonesia','terlalu panjang dan rumit','ditulis tanpa tanda baca','dikirim melalui alat Gambar'],k:0,t:'Unsur-unsur prompt',h:'Bandingkan dengan 6 unsur prompt. Unsur apa saja yang belum disebut?',e:'Prompt itu belum menyebut jenis, tujuan, dan gaya, sehingga AI harus menebak.'},
+{q:'Unsur prompt yang menjelaskan siapa sasaran pembaca desain adalah ….',o:['gaya visual','batasan','jenis desain','audiens','warna dan suasana'],k:3,t:'Unsur-unsur prompt',h:'Cari unsur yang menjawab pertanyaan: desain ini untuk siapa?',e:'Audiens adalah sasaran pembaca desain.'},
+{q:'Prompt yang paling lengkap untuk membuat desain adalah ….',o:['“Buat poster yang bagus.”','“Buat poster A4 pameran karya DKV untuk pelajar, judul “Pameran Karya DKV 2026”, gaya modern minimalis, warna biru dan putih.”','“Poster pameran, warna biru.”','“Tolong buatkan desain untuk acara sekolah.”','“Buat gambar keren dan menarik.”'],k:1,t:'Menyusun prompt lengkap',h:'Pilih prompt yang menyebut paling banyak unsur: jenis, tujuan, pesan, gaya, dan warna.',e:'Pilihan B memuat jenis, tujuan, audiens, pesan, gaya, dan warna sekaligus.'},
+{q:'Kalimat “gaya ilustrasi datar, warna pastel, suasana ceria” termasuk unsur prompt ….',o:['jenis desain dan tujuan','pesan utama','audiens dan batasan','ukuran dan format berkas','gaya, warna, dan suasana'],k:4,t:'Unsur-unsur prompt',h:'Kalimat itu menjelaskan tampilan dan rasa desainnya. Unsur mana yang mengurus hal itu?',e:'Ilustrasi datar, warna pastel, dan suasana ceria termasuk unsur gaya, warna, dan suasana.'},
+{q:'Langkah pertama yang tepat sebelum menulis prompt adalah ….',o:['langsung menekan tombol kirim','memilih font yang paling disukai','menentukan tujuan dan sasaran desain','mengunduh desain orang lain','membuat akun Canva baru'],k:2,t:'Langkah awal menulis prompt',h:'Sebelum menulis, kamu perlu tahu dulu desainnya untuk apa dan untuk siapa.',e:'Tujuan dan sasaran menjadi dasar bagi semua unsur prompt yang lain.'},
+{q:'Hasil pertama Canva AI belum sesuai harapan. Cara penyempurnaan yang dianjurkan adalah ….',o:['menghapus seluruh prompt lalu menulis ulang secara acak','mengubah satu elemen pada prompt, lalu mencobanya kembali','mengganti semua unsur prompt sekaligus','menyerah dan memakai hasil apa adanya','membuka akun Canva yang lain'],k:1,t:'Menyempurnakan hasil',h:'Ubah sedikit demi sedikit supaya kamu tahu perubahan mana yang berpengaruh.',e:'Mengubah satu elemen lalu mencoba lagi membuat kita tahu apa yang berhasil.'},
+{q:'Untuk mengubah bagian tertentu dari desain yang sudah ada, pengguna sebaiknya ….',o:['memilih elemen tersebut, lalu menjelaskan perubahan yang diinginkan','membuat desain baru dari awal','menghapus seluruh halaman','mencetak desain terlebih dahulu','mengabaikan bagian tersebut'],k:0,t:'Mengubah bagian desain',h:'Beri tahu AI bagian mana yang kamu maksud, lalu jelaskan perubahannya.',e:'Pilih elemennya dan jelaskan perubahan yang diinginkan, tanpa membuat ulang seluruh desain.'},
+{q:'Judul poster berwarna kuning di atas latar putih sulit dibaca. Prinsip desain yang belum terpenuhi adalah ….',o:['keseimbangan','irama','proporsi','kontras','kesatuan'],k:3,t:'Prinsip kontras',h:'Kuning dan putih sama-sama terang. Apa yang kurang di antara keduanya?',e:'Perbedaan terang dan gelap antara teks dan latar disebut kontras. Di sini kontrasnya kurang.'},
+{q:'Canva AI menghasilkan poster dengan tanggal acara yang keliru. Tindakan yang paling tepat adalah ….',o:['membiarkannya karena AI selalu benar','menghapus akun Canva','menyebarkan poster agar cepat dikenal','meminta teman memeriksanya setelah dicetak','memeriksa dan memperbaiki isi sebelum desain digunakan'],k:4,t:'Memeriksa hasil AI',h:'AI bisa salah. Kapan waktu terbaik untuk memeriksa isi desain?',e:'Isi hasil AI harus diperiksa dan diperbaiki dulu sebelum desain digunakan.'}
+];
+
+const lencana=s=>s<60?'Perunggu':s<85?'Perak':'Emas';
+const tgl=()=>new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+function render(h,back=true){app.innerHTML=(back?'<button class="kembali" onclick="menu()">‹ Kembali ke menu</button>':'')+h;scrollTo(0,0)}
+function simpan(j,s){const u=users();if(!u[me])return;u[me][j]={skor:s,lencana:lencana(s),waktu:new Date().toISOString()};LS.s('bp2_siswa',u)}
+
+/* Nama: hanya huruf (spasi antar kata boleh), tidak boleh sama */
+const bersih=v=>v.replace(/[^\p{L} ]/gu,'').replace(/ {2,}/g,' ').replace(/^ /,'');
+const NAMA_OK=n=>/^\p{L}{2,}(?: \p{L}+)*$/u.test(n);
+function masuk(){render(`<h1 class="judul">Bengkel Prompt</h1><p class="sub">Tulis namamu dulu. Nama hanya boleh huruf dan tidak boleh sama dengan temanmu.</p><label for="nm">Nama kamu</label><input id="nm" autocomplete="off" maxlength="40" oninput="cekNama(this)" onkeydown="if(event.key==='Enter')daftar()"><p id="err" class="err" role="alert"></p><button class="besar" id="go" onclick="daftar()" disabled>Mulai</button>`,false)}
+function cekNama(el){const a=el.value,b=bersih(a);el.value=b;$('#err').textContent=a!==b?'Hanya huruf yang boleh. Angka dan simbol dihapus.':'';$('#go').disabled=!NAMA_OK(b.trim())}
+function daftar(){const n=bersih($('#nm').value).trim(),e=$('#err');
+if(!NAMA_OK(n)){e.textContent='Tulis namamu dengan huruf saja, minimal 2 huruf.';return}
+const k=n.toLocaleLowerCase('id'),u=users();
+if(u[k]){e.textContent=`Nama “${n}” sudah dipakai. Tambahkan nama belakangmu.`;return}
+u[k]={nama:n,daftar:new Date().toISOString()};LS.s('bp2_siswa',u);me=k;SS.s('bp2_aktif',k);menu()}
+function keluar(){me=null;SS.s('bp2_aktif',null);masuk()}
+
+function menu(){const r=users()[me];
+render(`<h1 class="judul">Bab 2<br>Teknik Prompt Canva AI</h1><p class="sub">Halo, ${esc(r.nama)}! Pilih tantanganmu.</p>
+<button class="besar" onclick="kuis()">Kuis<span>10 soal${r.kuis?`, terakhir ${r.kuis.skor} (${r.kuis.lencana})`:''}</span></button>
+<button class="besar kuning" onclick="game()">Game<span>Bengkel Prompt, 3 level${r.game?`, terakhir ${r.game.skor} (${r.game.lencana})`:''}</span></button>
+<button class="tipis" onclick="keluar()">Ganti nama</button>`,false)}
+
+/* Pilihan jawaban dengan aturan Discovery Learning: salah → petunjuk → coba lagi → kunci */
+function tanya(host,opts,k,hint,fin){let t=0;
+host.innerHTML=opts.map((x,j)=>`<button class="op"><b>${'ABCDE'[j]}</b><span>${esc(x)}</span></button>`).join('')+'<div id="fb"></div>';
+const b=[...host.querySelectorAll('.op')],fb=host.querySelector('#fb'),kunci=()=>b.forEach(x=>x.disabled=true),ok=j=>{b[j].classList.add('benar');b[j].firstChild.textContent='✓'};
+b.forEach((el,j)=>el.onclick=()=>{
+if(j===k){ok(j);kunci();fin(t?5:10,t>0)}
+else{el.classList.add('salah');el.disabled=true;
+if(!t){t=1;fb.innerHTML=`<div class="fb petunjuk"><b>Belum tepat. Coba sekali lagi.</b><p>${esc(hint)}</p></div>`}
+else{ok(k);kunci();fin(0,true)}}})}
+
+function kuis(){QZ={o:shuf(Q.map((_,i)=>i)),i:0,skor:0,weak:[]};soal()}
+function soal(){const q=Q[QZ.o[QZ.i]];
+render(`<div class="chips" aria-label="Soal ${QZ.i+1} dari 10">${Q.map((_,j)=>`<i class="${j<QZ.i?'on':j==QZ.i?'cur':''}"></i>`).join('')}</div><p class="kecil">Soal ${QZ.i+1} dari 10, skor ${QZ.skor}</p><h2 class="tanya">${esc(q.q)}</h2><div id="ops"></div>`);
+tanya($('#ops'),q.o,q.k,'Petunjuk: '+q.h,(p,w)=>{QZ.skor+=p;if(w)QZ.weak.push(q.t);
+$('#fb').innerHTML=`<div class="fb ${p?'ok':''}"><b>${p?`✓ Benar! +${p} poin`:`Jawaban yang benar: ${'ABCDE'[q.k]}`}</b><p>${esc(q.e)}</p><button class="besar" onclick="nextQ()">${QZ.i<9?'Soal berikutnya':'Lihat hasil'}</button></div>`;
+$('#fb').scrollIntoView({block:'nearest'})})}
+function nextQ(){if(++QZ.i<10)soal();else hasil('kuis',QZ.skor,QZ.weak)}
+
+function hasil(j,s,weak){const l=lencana(s),w=[...new Set(weak)];simpan(j,s);
+render(`<div class="medali ${l}">${l}</div><h1 class="skor">${s}<small>/100</small></h1><p class="sub">${esc(users()[me].nama)}, ${tgl()}</p>
+${w.length?`<h2>Materi yang perlu diulang</h2><ul class="ulang">${w.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p class="fb ok"><b>Hebat!</b> Semua materi sudah kamu kuasai.</p>'}
+<button class="besar" onclick="${j}()">Ulangi</button><p class="guru">Tunjukkan layar ini ke gurumu</p>`)}
+
+/* Poster pratinjau */
+const poster=o=>{const t=o.title||['Pameran','Karya DKV'],f=o.fg||'#fff',z=o.size||22;
+return `<svg class="poster" viewBox="0 0 200 270" role="img" aria-label="Pratinjau poster"><rect width="200" height="270" rx="8" fill="${o.bg}"/>${o.clean?'<circle cx="158" cy="52" r="24" fill="#FFC93C"/><rect x="20" y="212" width="64" height="5" rx="2.5" fill="#fff" opacity=".75"/>':o.clean===0?'<polygon points="10,30 70,8 52,74" fill="#E4572E"/><circle cx="150" cy="130" r="34" fill="#7A3FA0"/><rect x="24" y="178" width="150" height="16" fill="#2BB673" transform="rotate(-8 100 186)"/><polygon points="120,250 192,206 184,264" fill="#FFC93C"/>':''}${t.map((x,i)=>`<text x="20" y="${120+i*z*1.1}" font-size="${z}" font-weight="800" fill="${f}" font-family="Baloo 2,Nunito,sans-serif">${x}</text>`).join('')}${o.sub?`<text x="20" y="${120+t.length*z*1.1+14}" font-size="11" fill="${f}" font-family="Nunito,sans-serif">${o.sub}</text>`:''}${o.frame?'<rect x="6" y="6" width="188" height="258" rx="5" fill="none" stroke="#FFC93C" stroke-width="2"/>':''}</svg>`};
+const ST=[{bg:'#D7DCE5',fg:'#7A8499',title:['Poster'],size:16},{bg:'#EEF2F9',fg:'#0F2347',sub:'untuk siswa SMK'},{bg:'#1E5AA8',clean:1,sub:'untuk siswa SMK'},{bg:'#1E5AA8',clean:1,sub:'untuk siswa SMK',frame:1}];
+
+/* Game Bengkel Prompt */
+const U=[['jenis','jenis desain','poster'],['aud','tujuan dan audiens','siswa SMK'],['pesan','pesan utama','Pameran Karya DKV'],['gaya','gaya visual','modern minimalis'],['warna','warna dan suasana','biru, ceria'],['batas','batasan','maksimal 20 kata']];
+const sl=k=>`<button class="slot" data-s="${k}">${U.find(u=>u[0]==k)[1]}</button>`;
+function game(){GM={s:0,weak:[]};lv1()}
+function lv1(){GM.m=0;GM.sel=null;GM.n=0;
+render(`<p class="kecil">Level 1 dari 3, Rakit Prompt. Skor ${GM.s}</p><h2 class="tanya">Seret atau ketuk kartu, lalu ketuk slot yang cocok.</h2>
+<div class="kalimat">Buatkan ${sl('jenis')} untuk ${sl('aud')}, dengan pesan utama ${sl('pesan')}, gaya ${sl('gaya')}, warna ${sl('warna')}, ${sl('batas')}.</div>
+<div id="kartu">${shuf(U).map(u=>`<button class="kartu" draggable="true" data-k="${u[0]}">${u[2]}</button>`).join('')}</div><div id="fb" aria-live="polite"></div>`);
+document.querySelectorAll('.kartu').forEach(c=>{c.onclick=()=>{document.querySelectorAll('.kartu').forEach(x=>x.classList.remove('pilih'));GM.sel=c.dataset.k;c.classList.add('pilih')};c.ondragstart=e=>{GM.sel=c.dataset.k;e.dataTransfer.setData('text',c.dataset.k)}});
+document.querySelectorAll('.slot').forEach(s=>{s.onclick=()=>taruh(s);s.ondragover=e=>e.preventDefault();s.ondrop=e=>{e.preventDefault();taruh(s)}})}
+function taruh(s){const fb=$('#fb'),c=GM.sel&&$(`.kartu[data-k="${GM.sel}"]`);
+if(!c||s.classList.contains('isi')){fb.innerHTML='<div class="fb petunjuk">Pilih satu kartu dulu, lalu ketuk slot yang kosong.</div>';return}
+if(GM.sel===s.dataset.s){s.textContent=c.textContent;s.classList.add('isi');c.hidden=true;GM.sel=null;fb.innerHTML='';
+if(++GM.n===6){GM.s+=Math.max(0,40-4*GM.m);
+fb.innerHTML=`<div class="fb ok"><b>✓ Prompt terkirim!</b><div class="adu">${poster(ST[3])}<div class="gel">Postermu jadi. Skor Level 1: ${Math.max(0,40-4*GM.m)} dari 40.</div></div><button class="besar" onclick="lv2()">Ke Level 2</button></div>`;fb.scrollIntoView({block:'nearest'})}}
+else{GM.m++;GM.weak.push('Unsur prompt: '+U.find(u=>u[0]==GM.sel)[1]);s.classList.add('goyang');setTimeout(()=>s.classList.remove('goyang'),450);
+fb.innerHTML='<div class="fb petunjuk"><b>Belum cocok.</b><p>Petunjuk: kartu ini menjelaskan unsur apa? Coba slot yang lain.</p></div>'}}
+
+const P=['Buatkan poster.','Buatkan poster Pameran Karya DKV untuk siswa SMK.','Buatkan poster Pameran Karya DKV untuk siswa SMK, gaya modern minimalis, warna biru ceria.','Buatkan poster Pameran Karya DKV untuk siswa SMK, gaya modern minimalis, warna biru ceria, maksimal 20 kata.'];
+const D2=[{o:['Buatkan poster yang bagus dan keren.',P[1],'Buatkan poster dengan banyak warna.'],k:1},{o:[P[2],P[1].slice(0,-1)+', bikin lebih menarik.',P[1].slice(0,-1)+', terserah AI.'],k:0},{o:[P[2].slice(0,-1)+', pakai semua gaya lain sekaligus.',P[2].slice(0,-1)+', seperti poster orang lain.',P[3]],k:2}];
+function lv2(s=0){
+render(`<p class="kecil">Level 2 dari 3, Dokter Prompt. Skor ${GM.s}</p><h2 class="tanya">Prompt ini masih lemah. Pilih perbaikan yang paling tepat.</h2><div class="adu">${poster(ST[s])}<div class="gel">${esc(P[s])}</div></div><div id="ops"></div>`);
+tanya($('#ops'),D2[s].o,D2[s].k,'Unsur apa yang belum disebut?',(p,w)=>{GM.s+=p;if(w)GM.weak.push('Melengkapi unsur prompt');
+$('.adu').innerHTML=poster(ST[s+1])+`<div class="gel">${esc(P[s+1])}</div>`;
+$('#fb').innerHTML=`<div class="fb ok"><b>${p?'✓ +'+p+' poin':'Ini perbaikan yang tepat.'}</b><p>Pratinjau posternya makin jelas.</p><button class="besar" onclick="${s<2?`lv2(${s+1})`:'lv3()'}">${s<2?'Lanjut':'Ke Level 3'}</button></div>`})}
+
+const D3=[{m:'Masalah 1: warna. Judul putih di atas latar kuning muda sulit dibaca.',o:['Ubah semuanya: warna, ukuran judul, dan gaya.','Ganti warna latar menjadi biru tua. Judul dan gaya tetap sama.','Buat desainnya lebih bagus.'],k:1},{m:'Masalah 2: judul terlalu kecil.',o:['Perbesar judul dua kali lebih besar. Warna dan gaya tetap sama.','Buat judul lebih menarik dan ganti warnanya.','Buat ulang poster dari awal.'],k:0},{m:'Masalah 3: gaya terlalu ramai.',o:['Ubah gaya, warna, dan judul sekaligus.','Terserah, ubah apa saja yang AI mau.','Ubah gaya menjadi minimalis dengan bentuk sederhana. Warna dan judul tetap sama.'],k:2}];
+const F3=[{bg:'#FFE680',size:12,clean:0},{bg:'#1E5AA8',size:12,clean:0},{bg:'#1E5AA8',size:26,clean:0},{bg:'#1E5AA8',size:26,clean:1}];
+function lv3(s=0){
+render(`<p class="kecil">Level 3 dari 3, Ubah Satu Elemen. Skor ${GM.s}</p><h2 class="tanya">${D3[s].m}</h2><p class="sub">Pilih prompt lanjutan yang spesifik dan hanya mengubah satu elemen.</p><div class="adu">${poster(F3[s])}</div><div id="ops"></div>`);
+tanya($('#ops'),D3[s].o,D3[s].k,'Pilih prompt yang menyebut satu elemen saja, sementara bagian lain tetap sama.',(p,w)=>{GM.s+=p;if(w)GM.weak.push('Mengubah satu elemen');
+$('.adu').innerHTML=poster(F3[s+1]);
+$('#fb').innerHTML=`<div class="fb ok"><b>${p?'✓ +'+p+' poin':'Ini prompt yang tepat.'}</b><p>Hanya satu elemen yang berubah.</p><button class="besar" onclick="${s<2?`lv3(${s+1})`:"hasil('game',GM.s,GM.weak)"}">${s<2?'Lanjut':'Lihat skor'}</button></div>`})}
+
+const a=SS.g('bp2_aktif');if(a&&users()[a]){me=a;menu()}else masuk();
+</script>
+</body>
+</html>

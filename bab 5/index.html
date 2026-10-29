@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bab 5 - Proyek Integrasi</title>
+<style>
+:root{--b:#1E5AA8;--d:#0f2d5c;--y:#FFC83D;--ink:#12233f;--ok:#1f9d55;--no:#d64545}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:#fff;font:17px/1.5 ui-rounded,"Nunito","Trebuchet MS",system-ui,sans-serif;
+background:var(--d);background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:28px 28px}
+#app{max-width:560px;margin:0 auto;padding:14px 14px 40px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:48px}
+.who{font-weight:700;color:var(--y);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+button{font:inherit;cursor:pointer;color:inherit}
+button:focus-visible,input:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+.ghost{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);border-radius:14px;padding:8px 14px;min-height:44px}
+.card{background:#fff;color:var(--ink);border-radius:22px;padding:20px;margin:12px 0;box-shadow:0 6px 0 rgba(0,0,0,.25)}
+.card h1{margin:.2em 0;color:var(--b);font-size:1.9rem;line-height:1.15}
+.card h2{font-size:1.15rem;line-height:1.35;margin:.2em 0 .7em}
+.center{text-align:center}
+.hero svg{display:block;margin:0 auto 6px}
+.big{display:block;width:100%;min-height:56px;margin:10px 0;border:0;border-radius:18px;background:var(--y);color:var(--ink);font-weight:800;font-size:1.1rem;padding:12px 16px;box-shadow:0 5px 0 #c99500}
+.big:active{transform:translateY(4px);box-shadow:0 1px 0 #c99500}
+.big.alt{background:#fff;box-shadow:0 5px 0 #9fb8e0}
+.big small{display:block;font-weight:500;font-size:1rem}
+.big.menu{min-height:96px;font-size:1.5rem;text-align:left;padding:16px 20px}
+.row{display:flex;gap:10px}.row .big{flex:1}
+input{width:100%;font:inherit;font-size:1.15rem;padding:14px;border-radius:14px;border:3px solid #b8c9e8;color:var(--ink)}
+label{font-weight:700}
+.msg{color:var(--no);min-height:1.5em;font-weight:700;margin:.4em 0}
+.note{background:var(--y);color:var(--ink);padding:8px 12px;border-radius:12px;font-size:1rem}
+.bar{height:12px;border-radius:9px;background:rgba(255,255,255,.2);overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--y);transition:width .4s}
+.step{margin:.5em 0;color:#cfe0ff}
+.card .step{color:#4b5f80}
+.op{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;margin:8px 0;padding:12px;min-height:56px;border:3px solid #b8c9e8;border-radius:16px;background:#f1f6ff;color:var(--ink)}
+.op b{flex:none;width:34px;height:34px;border-radius:50%;background:var(--b);color:#fff;display:grid;place-items:center}
+.op.ok{background:#d9f7e3;border-color:var(--ok)}.op.bad{background:#ffe1e1;border-color:var(--no);animation:shk .45s}
+.op:disabled{opacity:1}
+.good,.hint,.reveal{border-radius:16px;padding:14px;margin-top:12px}
+.good{background:#d9f7e3}.hint{background:#fff1c2}.reveal{background:#e1ecff}
+.shake{animation:shk .45s}
+.chk{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ok);color:#fff;font-weight:800;animation:pop .4s}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.medal{font-size:5rem;line-height:1.1}
+.show{background:var(--d);color:var(--y);border-radius:14px;padding:10px;font-weight:800}
+.trk{display:flex;gap:6px;list-style:none;padding:0;margin:10px 0}
+.trk li{flex:1;text-align:center;font-weight:800;padding:6px 2px;border-radius:12px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25)}
+.trk li small{display:block;font-weight:500;font-size:.8rem;line-height:1.2}
+.trk .now{background:var(--y);color:var(--ink);border-color:var(--y)}.trk .done{background:var(--ok);border-color:var(--ok)}
+.ins{margin-top:0}
+.grp{margin:12px 0}.grp b{display:block;color:var(--b)}
+.chip{display:block;width:100%;text-align:left;margin:6px 0;padding:11px 14px;min-height:48px;border:2px solid #b8c9e8;border-radius:14px;background:#f1f6ff;color:var(--ink)}
+.chip.sel{background:#dbe8ff;border-color:var(--b);font-weight:700}
+.bank{display:flex;flex-wrap:wrap;gap:6px}.bank .chip{width:auto;flex:1 1 45%}
+.slot{border:3px dashed #9fb8e0;border-radius:14px;padding:10px 12px;margin:8px 0;min-height:64px}
+.slot small{display:block;color:#4b5f80}.slot.fill{border-style:solid;border-color:var(--b);background:#eef4ff}
+.meter{position:relative;height:34px;border-radius:12px;background:#dbe8ff;overflow:hidden;margin-top:12px}
+.meter i{position:absolute;inset:0 auto 0 0;background:#8fd1a8;transition:width .4s}
+.meter span{position:relative;display:block;text-align:center;line-height:34px;font-weight:800}
+.ans{padding-left:22px;margin:8px 0}.ans .empty{list-style:none;margin-left:-22px;color:#4b5f80;padding:10px;border:3px dashed #9fb8e0;border-radius:14px}
+.sc{list-style:none;padding:0}.sc li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:2px dashed #cfdcf2}
+.flag{border-color:var(--no);background:#ffe9e9}
+ul.w{text-align:left}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const $=s=>document.querySelector(s),A=$('#app');
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const badge=s=>s>=85?['Emas','🥇']:s>=60?['Perak','🥈']:['Perunggu','🥉'];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const NAMA=/^[A-Za-z]+( [A-Za-z]+)*$/;
+let U=null,P={},offline=false,K,G;
+
+async function api(aksi,d={}){
+  try{const r=await fetch('api.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({aksi,...d})});return await r.json()}
+  catch(e){offline=true;return{ok:true,id:0,progres:{}}}
+}
+function shell(inner,back=true){
+  A.innerHTML=`<header><span>${back?'<button class="ghost" onclick="menu()">← Kembali ke menu</button>':''}</span><span class="who">${U?esc(U.nama):''}</span></header>${offline?'<p class="note">Mode offline: progres belum tersimpan ke server.</p>':''}<main>${inner}</main>`;
+  window.scrollTo(0,0);
+}
+const ILLU='<svg viewBox="0 0 130 84" width="130" aria-hidden="true"><rect x="8" y="6" width="84" height="54" rx="8" fill="#fff" stroke="#1E5AA8" stroke-width="4"/><rect x="16" y="14" width="32" height="22" rx="4" fill="#FFC83D"/><rect x="54" y="14" width="30" height="6" rx="3" fill="#1E5AA8"/><rect x="54" y="26" width="20" height="6" rx="3" fill="#9fbdf0"/><rect x="16" y="42" width="68" height="6" rx="3" fill="#cfe0ff"/><rect x="38" y="62" width="24" height="9" fill="#1E5AA8"/><path d="M96 66l22-32 9 6-22 32-13 4z" fill="#FFC83D" stroke="#0f2d5c" stroke-width="3" stroke-linejoin="round"/></svg>';
+
+/* ---------- Masuk dengan nama ---------- */
+function login(){
+  shell(`<section class="card hero center">${ILLU}<h1>Proyek Integrasi</h1><p>Canva AI untuk Desain Komunikasi Visual, kelas XI DKV</p></section>
+  <section class="card"><label for="nm">Tulis namamu (hanya huruf)</label><input id="nm" maxlength="40" autocomplete="off" placeholder="Contoh: Rani Putri"><p id="msg" class="msg" role="alert"></p>
+  <div class="row"><button class="big" onclick="masuk(true)">Daftar baru</button><button class="big alt" onclick="masuk(false)">Lanjutkan</button></div></section>`,false);
+  const i=$('#nm');
+  i.oninput=()=>{const v=i.value.replace(/[^A-Za-z ]/g,'').replace(/ {2,}/g,' ');if(v!==i.value){i.value=v;msg('Hanya huruf yang boleh. Angka dan simbol tidak bisa dipakai.')}else msg('')};
+}
+const msg=t=>{$('#msg').textContent=t};
+async function masuk(baru){
+  const n=$('#nm').value.trim().replace(/ +/g,' ');
+  if(n.length<3||!NAMA.test(n))return msg('Nama minimal 3 huruf, hanya huruf (spasi boleh di antara kata).');
+  const r=await api(baru?'daftar':'masuk',{nama:n});
+  if(!r.ok)return msg(r.pesan||'Gagal masuk. Coba lagi.');
+  U={id:r.id,nama:r.nama||n};P=r.progres||{};menu();
+}
+
+/* ---------- Menu ---------- */
+function menu(){
+  const k=P.kuis,g=P.game;
+  shell(`<section class="card hero center">${ILLU}<h1>Bab 5<br>Proyek Integrasi</h1><p>Halo, ${esc(U.nama)}! Pilih tantanganmu.</p></section>
+  <button class="big menu" onclick="kuis()">📝 Kuis<small>${k!=null?'Skor terbaik '+k+' '+badge(k)[1]:'10 soal pilihan ganda'}</small></button>
+  <button class="big menu alt" onclick="game()">🎮 Game<small>${g!=null?'Skor terbaik '+g+' '+badge(g)[1]:'Misi Proyek Integrasi, 4 stasiun'}</small></button>`);
+}
+
+/* ---------- Kuis ---------- */
+const QZ=[
+{m:'Pengertian proyek integrasi',t:'Proyek integrasi pada bab ini paling tepat diartikan sebagai ….',o:['proyek yang hanya menghasilkan satu poster','proyek yang memadukan keterampilan prompt, website, dan video untuk menghasilkan produk digital yang saling berkaitan','kegiatan mengunduh template dari internet','kegiatan membuat akun Canva baru','proyek menggambar tanpa bantuan alat digital'],k:1,h:'Ingat kata "integrasi": menggabungkan beberapa keterampilan sekaligus.',e:'Proyek integrasi memadukan keterampilan prompt, website, dan video menjadi produk digital yang saling berkaitan.'},
+{m:'Tiga produk proyek integrasi',t:'Tiga produk utama pada proyek integrasi di bab ini adalah ….',o:['poster, flyer, dan brosur','kuis, kalkulator, dan flashcard','logo, kartu nama, dan kemasan','website portofolio, video promosi atau profil karya, dan presentasi proyek','dokumen, kode, dan gambar'],k:3,h:'Tiga produknya saling berkaitan: satu dibuka di peramban, satu ditonton, satu dipresentasikan.',e:'Tiga produknya adalah website portofolio, video promosi atau profil karya, dan presentasi proyek.'},
+{m:'Merancang konsep proyek',t:'Langkah pertama yang tepat sebelum membuat website dan video proyek adalah ….',o:['merancang konsep proyek yang memuat tujuan, sasaran, pesan, dan gaya visual','langsung mengekspor video','membeli domain berbayar','mempublikasikan website yang masih kosong','membagikan tautan ke media sosial'],k:0,h:'Sebelum membangun sesuatu, apa yang selalu dibuat lebih dulu? Pikirkan rancangannya.',e:'Konsep dirancang lebih dulu. Tujuan, sasaran, pesan, dan gaya visual menjadi pegangan untuk semua produk.'},
+{m:'Storyboard video',t:'Rancangan urutan adegan yang memuat visual, teks, dan durasi sebelum video disunting disebut ….',o:['timeline','playhead','storyboard','footer','favicon'],k:2,h:'Dua pilihan hanyalah bagian tampilan editor, dan dua lagi bagian website. Cari yang berupa rancangan adegan.',e:'Storyboard adalah rancangan urutan adegan (visual, teks, durasi) sebelum video disunting.'},
+{m:'Fungsi website portofolio',t:'Fungsi utama website portofolio bagi seorang desainer adalah ….',o:['menjual perangkat keras','menyimpan seluruh berkas komputer','mengunduh video dari internet','menggantikan kegiatan presentasi','menampilkan karya sekaligus memperkenalkan pembuatnya kepada pengunjung'],k:4,h:'Pikirkan apa yang dibutuhkan guru atau calon klien saat ingin mengenal seorang desainer.',e:'Website portofolio menampilkan karya sekaligus memperkenalkan pembuatnya.'},
+{m:'Peta situs website portofolio',t:'Pada peta situs website portofolio, halaman yang menampilkan kumpulan poster dan ilustrasi buatan peserta didik adalah halaman ….',o:['Beranda','Karya','Kontak','Tentang Saya','Hak Cipta'],k:1,h:'Halaman mana yang berisi hasil karya, bukan profil atau cara menghubungi?',e:'Halaman Karya memuat kumpulan poster dan ilustrasi.'},
+{m:'Prompt efektif untuk beranda website',t:'Prompt yang paling tepat untuk membuat beranda website portofolio adalah ….',o:['"Buat website portofolio yang bagus."','"Beranda biru dengan tulisan."','"Tolong buatkan sesuatu untuk tugas sekolah."','"Buat beranda website portofolio desain untuk peserta didik DKV kelas XI, ditujukan bagi guru dan calon klien, judul "Portofolio Digital", ada tombol "Lihat Karya", gaya modern, warna biru dan putih."','"Website keren dan menarik."'],k:3,h:'Prompt yang baik menyebut siapa penggunanya, isi halaman, tombol, gaya, dan warna.',e:'Prompt terbaik jelas soal pengguna, sasaran, judul, tombol, gaya, dan warna.'},
+{m:'Kesatuan visual',t:'Agar website, video, dan presentasi terlihat sebagai satu kesatuan, hal yang perlu dijaga konsisten adalah ….',o:['warna, jenis huruf, dan gaya visual','jumlah halaman pada setiap produk','panjang durasi setiap produk','nama berkas yang diunduh','jenis akun Canva yang digunakan'],k:0,h:'Apa yang pertama kali dilihat mata sehingga tiga produk terasa satu merek?',e:'Warna, jenis huruf, dan gaya visual yang konsisten membuat produk terlihat satu kesatuan.'},
+{m:'Presentasi di Canva',t:'Pilihan presentasi di Canva yang digunakan untuk menampilkan presentasi sambil merekamnya adalah ….',o:['Present fullscreen','Presenter View','Present and record','Add transition','Generate AI voice'],k:2,h:'Cari nama yang memuat dua kegiatan sekaligus: menampilkan dan merekam.',e:'Present and record menampilkan presentasi sekaligus merekamnya.'},
+{m:'Etika, izin akses, dan privasi saat berbagi',t:'Sebelum membagikan desain proyek melalui tautan, tindakan yang paling tepat adalah ….',o:['memberi akses edit kepada semua orang','membiarkan semua halaman tersembunyi tetap ada','membagikan tanpa memeriksa pengaturan','menghapus akun Canva','memeriksa izin akses tautan dan menghapus isi yang tidak ingin dibagikan, seperti halaman tersembunyi dan catatan presenter'],k:4,h:'Pikirkan siapa yang boleh mengubah desainmu dan apa saja yang bisa ikut terbagi lewat halaman tersembunyi.',e:'Periksa izin akses tautan dan hapus isi yang tidak ingin dibagikan, misalnya halaman tersembunyi dan catatan presenter.'}
+];
+function kuis(){K={o:shuf(QZ.map((_,i)=>i)),i:0,pts:0,weak:[],att:0};kSoal()}
+function kSoal(){
+  const q=QZ[K.o[K.i]];K.att=0;
+  shell(`<div class="bar"><i style="width:${K.i*10}%"></i></div><p class="step">Soal ${K.i+1} dari 10</p><section class="card"><h2>${esc(q.t)}</h2>${q.o.map((x,j)=>`<button class="op" data-j="${j}"><b>${'ABCDE'[j]}</b><span>${esc(x)}</span></button>`).join('')}<div id="fb" aria-live="polite"></div></section>`);
+  document.querySelectorAll('.op').forEach(b=>b.onclick=()=>jawab(q,b));
+}
+const lock=()=>document.querySelectorAll('.op').forEach(b=>b.disabled=true);
+const nextBtn=()=>`<button class="big" onclick="kNext()">${K.i<9?'Lanjut':'Lihat hasil'}</button>`;
+function jawab(q,b){
+  const j=+b.dataset.j,fb=$('#fb');
+  if(j===q.k){const p=K.att?5:10;K.pts+=p;if(p<10)K.weak.push(q.m);lock();b.classList.add('ok');
+    fb.innerHTML=`<div class="good"><span class="chk">✓</span> Benar! +${p} poin<p>${esc(q.e)}</p>${nextBtn()}</div>`;return}
+  K.att++;b.classList.add('bad');b.disabled=true;
+  if(K.att===1)fb.innerHTML=`<div class="hint">💡 Petunjuk: ${esc(q.h)}<br>Coba sekali lagi!</div>`;
+  else{K.weak.push(q.m);lock();document.querySelectorAll('.op')[q.k].classList.add('ok');
+    fb.innerHTML=`<div class="reveal">Jawaban yang benar: <b>${'ABCDE'[q.k]}</b><p>${esc(q.e)}</p>${nextBtn()}</div>`}
+}
+function kNext(){K.i++;K.i<10?kSoal():kHasil()}
+function kHasil(){
+  const s=K.pts,[b,e]=badge(s),w=[...new Set(K.weak)];
+  api('simpan',{id:U.id,aktivitas:'kuis',skor:s});P.kuis=Math.max(P.kuis||0,s);
+  shell(`<section class="card center"><div class="medal">${e}</div><h1>Skor ${s} dari 100</h1><h2>Lencana ${b}</h2>
+  ${w.length?`<p><b>Materi yang masih perlu diulang:</b></p><ul class="w">${w.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p>Hebat! Semua materi sudah kamu kuasai.</p>'}
+  <p class="show">Tunjukkan layar ini ke gurumu</p><div class="row"><button class="big" onclick="kuis()">Ulangi</button><button class="big alt" onclick="menu()">Menu</button></div></section>`);
+}
+
+/* ---------- Game: Misi Proyek Integrasi ---------- */
+const ST=[{n:'Rancang Konsep',i:'🧭'},{n:'Website Portofolio',i:'🌐'},{n:'Video Profil Karya',i:'🎬'},{n:'Uji dan Presentasi',i:'🎤'}];
+
+/* Stasiun 1: pilihan selaras */
+function tKonsep(){
+  const D=[['Tema',['Portofolio desainer muda DKV','Promosi jajanan UMKM sekolah','Kampanye peduli lingkungan']],
+  ['Tujuan',['Menampilkan karya dan keahlian agar dilirik guru dan calon klien','Menarik pembeli agar mau memesan','Mengajak warga sekolah ikut aksi']],
+  ['Sasaran',['Guru, juri, dan calon klien','Pelanggan di sekitar sekolah','Seluruh siswa dan orang tua']],
+  ['Pesan utama',['Karya saya siap bersaing di dunia desain','Enak, murah, dan mudah dipesan','Mulai hari ini kurangi sampah plastik']],
+  ['Gaya visual',['Modern dan rapi, biru dan putih','Hangat dan ceria, merah dan kuning','Natural, hijau dan krem']]].map(d=>[d[0],d[1],shuf([0,1,2])]);
+  let c=[null,null,null,null,null],el;
+  const m=()=>{const n=[0,0,0];c.forEach(v=>v!=null&&n[v]++);return Math.max(...n)};
+  const draw=()=>{el.innerHTML=D.map(([l,o,sh],i)=>`<div class="grp"><b>${l}</b>${sh.map(k=>`<button class="chip${c[i]===k?' sel':''}" data-i="${i}" data-k="${k}">${esc(o[k])}</button>`).join('')}</div>`).join('')+`<div class="meter"><i style="width:${m()*20}%"></i><span>Skor keselarasan: ${m()*20}%</span></div>`;
+    el.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{c[+b.dataset.i]=+b.dataset.k;draw()})};
+  return{ins:'Kamu akan membuat website, video, dan presentasi. Pilih satu opsi untuk tiap bagian konsep. Semua pilihan harus saling mendukung satu cerita. Pantau skor keselarasannya!',
+  exp:'Konsep yang selaras: portofolio desainer muda DKV, tujuan menampilkan karya, sasaran guru dan calon klien, pesan percaya diri, gaya modern biru dan putih. Semua bagian mendukung satu cerita.',
+  build(e){el=e;draw()},
+  check(){if(c.includes(null))return{free:1,h:'Masih ada bagian yang belum dipilih.'};const k=m();return k===5?{ok:1}:{h:`Skor keselarasan baru ${k*20}%. Ada ${5-k} pilihan yang belum sejalan dengan yang lain. Baca lagi tema dan sasaran, lalu cocokkan.`}},
+  reveal(){c=[0,0,0,0,0];draw()}};
+}
+
+/* Penempatan (ketuk atau seret) */
+function placer(slots,items){
+  let pl=slots.map(()=>-1),sel=-1,bank=shuf(items.map((_,i)=>i)),el;
+  const put=(n,i)=>{if(isNaN(n))return;const o=pl.indexOf(n);if(o>=0)pl[o]=-1;pl[i]=n;sel=-1;draw()};
+  const draw=()=>{
+    el.innerHTML=`<div>${slots.map((s,i)=>`<div class="slot${pl[i]>=0?' fill':''}" data-i="${i}"><small>${esc(s[0])}</small><b>${pl[i]>=0?esc(items[pl[i]]):'＋ taruh di sini'}</b></div>`).join('')}</div><p class="step">Ketuk satu tombol lalu ketuk tempatnya, atau seret.</p><div class="bank">${bank.filter(n=>!pl.includes(n)).map(n=>`<button class="chip${sel===n?' sel':''}" draggable="true" data-n="${n}">${esc(items[n])}</button>`).join('')}</div>`;
+    el.querySelectorAll('.chip').forEach(b=>{const n=+b.dataset.n;b.onclick=()=>{sel=sel===n?-1:n;draw()};b.ondragstart=e=>e.dataTransfer.setData('text',n)});
+    el.querySelectorAll('.slot').forEach(s=>{const i=+s.dataset.i;s.onclick=()=>{if(sel>=0)put(sel,i);else if(pl[i]>=0){pl[i]=-1;draw()}};s.ondragover=e=>e.preventDefault();s.ondrop=e=>{e.preventDefault();put(parseInt(e.dataTransfer.getData('text')),i)}});
+  };
+  return{build(e){el=e;draw()},full:()=>!pl.includes(-1),wrong:()=>slots.filter((s,i)=>pl[i]!==s[1]).length,solve(){pl=slots.map(s=>s[1]);draw()}};
+}
+function tPlace(ins,slots,items,exp,hint){
+  const p=placer(shuf(slots),items);
+  return{ins,exp,build:p.build,reveal:p.solve,check(){if(!p.full())return{free:1,h:'Masih ada tempat yang kosong.'};const w=p.wrong();return w?{h:`${w} dari ${slots.length} tempat belum tepat. ${hint}`}:{ok:1}}};
+}
+
+/* Mengurutkan (ketuk berurutan) */
+function tOrder(ins,items,exp,hint){
+  let ans=[],bank=shuf(items.map((_,i)=>i)),el;
+  const draw=()=>{
+    el.innerHTML=`<ol class="ans">${ans.map(n=>`<li><button class="chip sel" data-r="${n}">${esc(items[n])}</button></li>`).join('')||'<li class="empty">Ketuk langkah di bawah secara berurutan</li>'}</ol><div class="bank">${bank.filter(n=>!ans.includes(n)).map(n=>`<button class="chip" data-a="${n}">${esc(items[n])}</button>`).join('')}</div>`;
+    el.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{ans.push(+b.dataset.a);draw()});
+    el.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{ans.splice(ans.indexOf(+b.dataset.r),1);draw()});
+  };
+  return{ins,exp,build(e){el=e;draw()},
+  check(){if(ans.length<items.length)return{free:1,h:'Urutannya belum lengkap.'};const k=ans.filter((n,i)=>n===i).length;return k===items.length?{ok:1}:{h:`${k} dari ${items.length} langkah sudah di urutan yang tepat. ${hint}`}},
+  reveal(){ans=items.map((_,i)=>i);draw()}};
+}
+
+/* Stasiun 4a: daftar periksa */
+function tPeriksa(){
+  const C=[['Kesatuan visual','Warna dan jenis huruf website, video, dan presentasi sama.',0],
+  ['Tautan','Tombol "Video" di website membuka halaman galat (error).',1,'Tautan rusak membuat pengunjung gagal menonton video.'],
+  ['Tampilan ponsel','Teks terbaca dan tombol mudah ditekan di layar ponsel.',0],
+  ['Isi','Setiap karya punya judul dan keterangan singkat.',0],
+  ['Etika, hak cipta, dan privasi','Video memakai lagu populer tanpa izin dan website memajang alamat rumah.',1,'Musik tanpa izin melanggar hak cipta, dan alamat rumah membahayakan privasi.']];
+  let s=new Set(),el,rv=false;
+  const draw=()=>{el.innerHTML=C.map((x,i)=>`<button class="chip${s.has(i)?' sel':''}${rv&&x[2]?' flag':''}" data-i="${i}"><b>${x[0]}</b><br>${x[1]}${s.has(i)?'<br>🚩 Bermasalah':''}${rv&&x[3]?'<br><i>'+x[3]+'</i>':''}</button>`).join('');
+    el.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;s.has(i)?s.delete(i):s.add(i);draw()})};
+  return{ins:'Proyekmu hampir selesai. Periksa daftar ini sebelum dibagikan. Ada 2 pernyataan yang bermasalah. Ketuk untuk menandainya.',
+  exp:'Dua yang bermasalah: tautan video yang rusak, serta lagu tanpa izin dan alamat rumah yang dipajang. Periksa tautan dan etika sebelum membagikan karya.',
+  build(e){el=e;draw()},
+  check(){if(s.size!==2)return{free:1,h:'Pilih tepat 2 pernyataan yang bermasalah.'};const k=[...s].filter(i=>C[i][2]).length;return k===2?{ok:1}:{h:`Baru ${k} dari 2 yang tepat. Tanyakan pada tiap pernyataan: apakah ini bisa membuat pengunjung gagal atau melanggar aturan?`}},
+  reveal(){rv=true;s=new Set(C.map((x,i)=>x[2]?i:-1).filter(i=>i>=0));draw()}};
+}
+
+const TASKS=[
+ [tKonsep],
+ [()=>tPlace('Susun peta situs. Tempatkan 5 halaman pada bagian yang sesuai isinya.',[['Halaman utama: judul dan tombol Lihat Karya',0],['Profil, keahlian, dan cerita singkat pembuat',1],['Kumpulan poster dan ilustrasi',2],['Video profil karya',3],['Cara menghubungi pembuat',4]],['Beranda','Tentang Saya','Karya','Video','Kontak'],'Beranda menyambut pengunjung, Tentang Saya memperkenalkan pembuat, Karya memajang hasil, Video menampilkan profil karya, dan Kontak memudahkan dihubungi.','Cocokkan isi tiap bagian dengan nama halamannya.'),
+  ()=>tPlace('Seret tombol navigasi ke posisi yang tepat pada rancangan halaman.',[['Pojok kiri atas header',0],['Kanan header, berisi daftar 5 halaman',1],['Bagian tengah Beranda',2],['Bagian paling bawah (footer)',3]],['Logo (kembali ke Beranda)','Menu navigasi','Tombol "Lihat Karya"','Tautan kontak dan media sosial'],'Logo di kiri atas, menu di kanan header, ajakan utama di tengah Beranda, dan kontak di footer.','Bayangkan kebiasaan pengunjung saat membuka website.')],
+ [()=>tOrder('Urutkan tahap kerja membuat video profil karya, dari awal sampai akhir.',['Rancang storyboard','Impor dan susun klip','Trim dan split','Tambah teks dan transisi','Pasang audio berlisensi','Ekspor ke MP4','Tautkan video ke website'],'Storyboard dulu agar tahu adegannya, lalu klip disusun dan dirapikan, diberi teks, transisi, dan audio berlisensi. Terakhir diekspor dan ditautkan ke website.','Rancang dulu sebelum menyunting. Video baru bisa ditautkan setelah diekspor.')],
+ [tPeriksa,()=>tOrder('Urutkan alur presentasi proyekmu.',['Latar: mengapa proyek dibuat','Proses: bagaimana mengerjakannya','Hasil: tampilkan produk akhir','Refleksi: apa yang dipelajari'],'Presentasi bercerita dari latar, proses, hasil, lalu ditutup dengan refleksi.','Cerita yang baik dimulai dari alasan dan ditutup dengan pelajaran.')]
+];
+
+function game(){G={s:0,t:0,sc:[],pt:[],att:0};tugas()}
+const track=()=>`<ol class="trk">${ST.map((x,i)=>`<li class="${i<G.s?'done':i===G.s?'now':''}">${i<G.s?'✓':i+1}<small>${x.n}</small></li>`).join('')}</ol>`;
+function tugas(){
+  const T=TASKS[G.s][G.t]();G.att=0;
+  shell(`${track()}<section class="card"><h2>${ST[G.s].i} Stasiun ${G.s+1}: ${ST[G.s].n}</h2><p class="ins">${T.ins}</p><div id="tm"></div><div id="fb" aria-live="polite"></div><button class="big" id="cek">Periksa</button></section>`);
+  T.build($('#tm'));
+  $('#cek').onclick=()=>{
+    const r=T.check(),fb=$('#fb');
+    if(r.free){fb.innerHTML=`<div class="hint">${r.h}</div>`;return}
+    if(r.ok)return selesai(T,[100,50][G.att]);
+    G.att++;
+    if(G.att===1)fb.innerHTML=`<div class="hint shake">💡 Petunjuk: ${r.h}<br>Perbaiki lalu periksa lagi.</div>`;
+    else{T.reveal();selesai(T,0,true)}
+  };
+}
+function selesai(T,p,rv){
+  G.pt.push(p);$('#cek').remove();$('#tm').style.pointerEvents='none';
+  $('#fb').innerHTML=`<div class="${rv?'reveal':'good'}">${rv?'Ini jawaban yang tepat:':`<span class="chk">✓</span> Benar! +${p} poin`}<p>${T.exp}</p><button class="big" onclick="lanjut()">Lanjut</button></div>`;
+}
+function lanjut(){
+  if(++G.t<TASKS[G.s].length)return tugas();
+  const avg=Math.round(G.pt.reduce((a,b)=>a+b,0)/G.pt.length);
+  G.sc.push(avg);api('simpan',{id:U.id,aktivitas:'s'+(G.s+1),skor:avg});
+  G.s++;G.t=0;G.pt=[];G.s<4?tugas():sertifikat();
+}
+function sertifikat(){
+  const tot=Math.round(G.sc.reduce((a,b)=>a+b,0)/4),[b,e]=badge(tot),w=ST.filter((_,i)=>G.sc[i]<85);
+  api('simpan',{id:U.id,aktivitas:'game',skor:tot});P.game=Math.max(P.game||0,tot);
+  shell(`<section class="card center"><p class="step">Sertifikat Mini</p><div class="medal">${e}</div><h1>${esc(U.nama)}</h1><p>menyelesaikan Misi Proyek Integrasi</p><h2>Lencana ${b}, skor ${tot}</h2>
+  <ul class="sc">${ST.map((x,i)=>`<li><span>${x.i} ${x.n}</span><b>${G.sc[i]}</b></li>`).join('')}</ul>
+  ${w.length?`<p><b>Materi yang masih perlu diulang:</b> ${w.map(x=>x.n).join(', ')}</p>`:'<p>Semua stasiun kamu kuasai dengan baik!</p>'}
+  <p class="show">Tunjukkan layar ini ke gurumu</p><div class="row"><button class="big" onclick="game()">Ulangi</button><button class="big alt" onclick="menu()">Menu</button></div></section>`);
+}
+login();
+</script>
+</body>
+</html>

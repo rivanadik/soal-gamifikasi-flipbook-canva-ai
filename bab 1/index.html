@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bab 1 - Pengenalan Canva AI</title>
+<style>
+:root{--b:#1E5AA8;--d:#0c2a54;--y:#FFD23F;--ok:#117a45;--no:#b3363b;--bg:#e9eff8;--line:#c3d3e8;--ink:#15253d}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font:500 17px/1.55 "Nunito","Varela Round","Trebuchet MS",ui-rounded,system-ui,sans-serif;background:var(--bg);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px;background-position:-1px -1px;min-height:100vh}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible,input:focus-visible,.card:focus-visible{outline:4px solid #e08a00;outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{max-width:720px;margin:0 auto;padding:14px 16px 60px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:56px}
+.logo{font-weight:800;color:var(--d);font-size:17px;display:flex;align-items:center;gap:8px}
+.logo i{width:22px;height:22px;background:var(--b);border-radius:7px;display:inline-block;position:relative}
+.logo i:after{content:"";position:absolute;inset:6px;background:var(--y);border-radius:50%}
+.btn{min-height:52px;padding:10px 20px;border-radius:16px;border:2px solid var(--d);font-weight:800;color:var(--d);background:#fff;box-shadow:0 4px 0 var(--d);transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--d)}
+.btn.y{background:var(--y)}.btn.b{background:var(--b);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:0 4px 0 var(--d)}
+.btn.sm{min-height:48px;padding:6px 14px}
+/* artboard: papan desain dengan titik pegangan seperti di editor */
+.board{position:relative;background:#fff;border:2px solid var(--b);border-radius:6px;padding:clamp(20px,5vw,36px);margin:22px 8px}
+.board:before,.board:after,.board>.h1,.board>.h2{content:"";position:absolute;width:14px;height:14px;background:#fff;border:2px solid var(--b);border-radius:4px}
+.board:before{left:-9px;top:-9px}.board:after{right:-9px;top:-9px}
+.board>.h1{left:-9px;bottom:-9px}.board>.h2{right:-9px;bottom:-9px}
+h1{font-size:clamp(30px,8vw,48px);line-height:1.1;letter-spacing:-.03em;color:var(--d);margin:.2em 0 .4em;font-weight:800}
+h2{font-size:clamp(22px,5vw,30px);line-height:1.2;color:var(--d);margin:0 0 8px;font-weight:800}
+p{margin:.4em 0}
+.chip{display:inline-block;background:var(--y);color:var(--d);border-radius:99px;padding:5px 14px;font-weight:800;font-size:16px}
+.field{display:block;margin-top:18px}
+.field span{font-weight:800;color:var(--d)}
+input[type=text]{width:100%;min-height:58px;margin-top:8px;border:3px solid #8aa6cc;border-radius:14px;padding:10px 16px;font:700 20px inherit;font-family:inherit;color:var(--ink);background:#f7faff}
+input.bad{border-color:var(--no);background:#fff3f2}input.good{border-color:var(--ok)}
+.msg{min-height:26px;margin-top:8px;font-weight:700;color:#4a6285}.msg.err{color:var(--no)}.msg.ok{color:var(--ok)}
+.menu-grid{display:grid;gap:14px;margin-top:22px}
+@media(min-width:560px){.menu-grid{grid-template-columns:1fr 1fr}}
+.tile{text-align:left;padding:20px;border:2px solid var(--d);border-radius:18px;background:#fff;box-shadow:0 5px 0 var(--d);color:var(--ink)}
+.tile:active{transform:translateY(3px);box-shadow:0 2px 0 var(--d)}
+.tile b{display:block;font-size:24px;color:var(--d)}
+.tile small{display:block;margin-top:4px;color:#4a6285;font-size:16px}
+.tile.q{background:var(--y)}.tile.q small{color:#41370a}
+.best{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}.best span{background:#e6eefa;border-radius:12px;padding:6px 12px;font-weight:700;font-size:16px}
+.track{height:14px;background:#dbe6f4;border-radius:9px;overflow:hidden;margin:10px 0 4px}
+.fill{height:100%;width:0;background:var(--b);border-radius:9px;transition:width .3s}
+.count{font-weight:800;color:var(--b)}
+.q-text{font-size:clamp(19px,4.4vw,24px);font-weight:800;line-height:1.4;margin:18px 0}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;width:100%;min-height:60px;padding:10px 14px;background:#fff;border:2px solid #98b3d6;border-radius:14px;color:var(--ink)}
+.opt:hover:not(:disabled){background:#eef4fc}
+.opt .l{flex:none;width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#e1ebf8;color:var(--b);font-weight:800}
+.opt.correct{border-color:var(--ok);background:#e4f6ec}.opt.correct .l{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--no);background:#fff0ef;animation:shake .35s}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+.fb{margin-top:16px;padding:14px 16px;border-radius:14px;border-left:6px solid var(--b);background:#e8f0fb;font-weight:700}
+.fb.good{background:#e4f6ec;border-color:var(--ok);color:#0d5a33}.fb.hint{background:#fff4cf;border-color:#b47700;color:#4c3500}
+.tick{display:inline-block;color:var(--ok);font-weight:800;font-size:22px;animation:pop .3s}
+@keyframes pop{from{transform:scale(.3)}to{transform:scale(1)}}
+.next{width:100%;margin-top:16px}
+/* game */
+.stage{position:relative;margin-top:14px}
+.card{position:relative;z-index:3;display:grid;place-items:center;text-align:center;min-height:130px;padding:20px;background:var(--y);border:2px solid var(--d);border-radius:18px;box-shadow:6px 6px 0 var(--d);font-weight:800;font-size:21px;line-height:1.35;color:var(--d);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .25s,box-shadow .15s}
+.card.sel{box-shadow:0 0 0 5px var(--ok),6px 6px 0 var(--d)}
+.card.drag{cursor:grabbing;transition:none;box-shadow:12px 14px 0 rgba(12,42,84,.35)}
+.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
+.tools .tool:last-child{grid-column:1/-1}
+@media(min-width:620px){.tools{grid-template-columns:repeat(5,1fr)}.tools .tool:last-child{grid-column:auto}}
+.tool{min-height:76px;border:3px dashed #7d9bc6;border-radius:16px;background:#f4f8fd;font-weight:800;color:var(--d);padding:8px;display:grid;place-items:center;gap:2px}
+.tool .ic{font-size:24px;line-height:1}
+.tool.over{border-style:solid;border-color:var(--b);background:#dfeafa}
+.tool.correct{border-style:solid;border-color:var(--ok);background:#e4f6ec}
+.tool.wrong{border-style:solid;border-color:var(--no);background:#fff0ef;animation:shake .35s}
+.tool:disabled{cursor:default}
+.lanes{display:flex;justify-content:space-between;gap:10px;font-weight:800;margin:16px 0 0}
+.lanes span{flex:1;text-align:center;padding:10px 6px;border-radius:12px;border:3px dashed #7d9bc6;background:#f4f8fd;color:var(--d);font-size:16px;transition:background .1s}
+.lanes span.on{background:#dfeafa;border-style:solid;border-color:var(--b)}
+.sides{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.sides .btn{padding:8px 10px;font-size:16px}
+.note{color:#4a6285;font-size:16px}
+/* hasil */
+.score{font-size:clamp(56px,17vw,96px);font-weight:800;color:var(--b);line-height:1;margin:14px 0;letter-spacing:-.04em}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:10px 22px 10px 12px;border-radius:99px;font-weight:800;font-size:20px;color:var(--d);border:2px solid var(--d)}
+.badge i{width:30px;height:30px;border-radius:50%;border:2px solid var(--d);display:block}
+.badge.Perunggu{background:#f1c9a0}.badge.Perunggu i{background:#c6803a}
+.badge.Perak{background:#e3e9f1}.badge.Perak i{background:#9aa8bb}
+.badge.Emas{background:var(--y)}.badge.Emas i{background:#f2a900}
+.rev{padding-left:22px;line-height:1.9}
+.who{background:#e6eefa;border-radius:12px;padding:10px 14px;margin-top:16px;font-weight:700}
+.save{font-size:16px;font-weight:700;margin-top:10px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header class="bar">
+  <div class="logo"><i></i>Studio DKV</div>
+  <button id="back" class="btn sm" type="button" hidden>Kembali ke menu</button>
+ </header>
+
+ <!-- 1. MASUK DENGAN NAMA -->
+ <section id="gate">
+  <div class="board"><b class="h1"></b><b class="h2"></b>
+   <span class="chip">Bab 1 - Pengenalan Canva AI</span>
+   <h1>Pemanfaatan Canva AI dalam Pembelajaran DKV</h1>
+   <p>Tulis namamu dulu supaya nilaimu tersimpan.</p>
+   <label class="field"><span>Nama lengkap</span>
+    <input id="name" type="text" maxlength="40" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Contoh: Rivan Adi" aria-describedby="name-msg">
+   </label>
+   <div id="name-msg" class="msg" role="status" aria-live="polite">Hanya huruf dan spasi. Angka dan simbol tidak bisa masuk.</div>
+   <button id="enter" class="btn y next" type="button" disabled>Masuk ke studio</button>
+  </div>
+ </section>
+
+ <!-- 2. MENU -->
+ <section id="menu" hidden>
+  <div class="board"><b class="h1"></b><b class="h2"></b>
+   <span class="chip">Bab 1 - Pengenalan Canva AI</span>
+   <h1 id="hello">Halo!</h1>
+   <p>Kenali alatnya, uji pemahamanmu, lalu putuskan kapan AI membantu dan kapan desainer yang menentukan.</p>
+   <div class="best" id="best"></div>
+   <div class="menu-grid">
+    <button id="go-quiz" class="tile q" type="button"><b>Kuis</b><small>10 soal pilihan ganda</small></button>
+    <button id="go-game" class="tile" type="button"><b>Game: Misi Lima Alat</b><small>15 kartu, seret dan geser</small></button>
+   </div>
+   <p style="margin-top:22px"><button id="logout" class="btn sm" type="button">Ganti nama</button></p>
+  </div>
+ </section>
+
+ <!-- 3. KUIS -->
+ <section id="quiz" hidden>
+  <div class="board"><b class="h1"></b><b class="h2"></b>
+   <h2>Kuis Canva AI</h2>
+   <p class="note">Pilihlah satu jawaban yang paling tepat!</p>
+   <div id="qcount" class="count" aria-live="polite"></div>
+   <div class="track" role="progressbar" aria-label="Kemajuan kuis" aria-valuemin="0" aria-valuemax="10" id="qprog"><div id="qbar" class="fill"></div></div>
+   <p id="qtext" class="q-text"></p>
+   <div id="opts" class="opts"></div>
+   <div id="qfb" class="fb" role="status" aria-live="polite" hidden></div>
+   <button id="qnext" class="btn y next" type="button" hidden>Soal berikutnya</button>
+  </div>
+ </section>
+
+ <!-- 4. GAME -->
+ <section id="game" hidden>
+  <div class="board"><b class="h1"></b><b class="h2"></b>
+   <h2>Misi Lima Alat</h2>
+   <div id="gcount" class="count" aria-live="polite"></div>
+   <div class="track" role="progressbar" aria-label="Kemajuan game" aria-valuemin="0" aria-valuemax="15" id="gprog"><div id="gbar" class="fill"></div></div>
+   <p id="ginfo" class="note"></p>
+   <div class="stage"><div id="card" class="card" tabindex="0" role="button"></div></div>
+   <div id="r1" class="tools"></div>
+   <div id="r2" hidden>
+    <div class="lanes"><span id="laneL">Dikerjakan AI</span><span id="laneR">Tetap tugas desainer</span></div>
+    <div class="sides">
+     <button class="btn" data-side="AI" type="button">Dikerjakan AI</button>
+     <button class="btn" data-side="Desainer" type="button">Tetap tugas desainer</button>
+    </div>
+   </div>
+   <div id="gfb" class="fb" role="status" aria-live="polite" hidden></div>
+   <button id="gnext" class="btn y next" type="button" hidden>Kartu berikutnya</button>
+  </div>
+ </section>
+
+ <!-- 5. HASIL -->
+ <section id="results" hidden>
+  <div class="board"><b class="h1"></b><b class="h2"></b>
+   <h2 id="rmode">Hasil belajarmu</h2>
+   <div id="rscore" class="score" aria-live="polite"></div>
+   <div id="rbadge" class="badge"></div>
+   <div class="who" id="rwho"></div>
+   <div class="save" id="rsave" role="status"></div>
+   <h2 style="margin-top:24px;font-size:20px">Materi yang masih perlu diulang</h2>
+   <ul id="rrev" class="rev"></ul>
+   <p style="font-weight:800;color:var(--d);font-size:20px;margin-top:18px">Tunjukkan layar ini ke gurumu</p>
+   <button id="retry" class="btn y next" type="button">Ulangi</button>
+  </div>
+ </section>
+</div>
+
+<script>
+/* ===== PENGATURAN =====
+ API_URL : isi alamat api.php di hosting, mis. "https://rivanadik.my.id/dkv/api.php"
+           Dikosongkan = mode uji coba (data hanya di perangkat ini, nama unik hanya di perangkat ini).
+ BAB     : nomor bab (1-5), ikut tersimpan di database. */
+const CONFIG={API_URL:"",BAB:1};
+
+/* ===== DATA (isi soal sesuai buku, tidak diubah) ===== */
+const Q=[
+{q:"Canva AI paling tepat diartikan sebagai ….",a:["aplikasi penyunting foto yang bekerja tanpa internet","asisten kreatif berbasis AI di Canva yang bekerja melalui percakapan","kumpulan template desain yang tidak dapat diubah","perangkat lunak khusus untuk menulis kode program","media sosial untuk membagikan karya desain"],k:1,t:"Pengertian Canva AI",h:"Pikirkan peran AI sebagai asisten yang diajak bercakap.",e:"Canva AI adalah asisten kreatif berbasis AI di Canva yang bekerja melalui percakapan."},
+{q:"Perintah yang diberikan pengguna kepada AI untuk menghasilkan konten disebut ….",a:["template","layout","prompt","font","brand kit"],k:2,t:"Prompt",h:"Cari istilah untuk instruksi yang kamu tulis kepada AI.",e:"Perintah kepada AI disebut prompt."},
+{q:"Selain mengetik teks, perintah kepada Canva AI juga dapat diberikan melalui ….",a:["suara","surel","telepon","pesan singkat","kode QR"],k:0,t:"Cara memberi perintah",h:"Pikirkan cara berbicara langsung untuk memberi instruksi.",e:"Perintah juga dapat diberikan melalui suara."},
+{q:"Alat Canva AI yang digunakan untuk menghasilkan ilustrasi dari deskripsi teks adalah ….",a:["Dokumen","Kode","Desain","Gambar","Klip Video"],k:3,t:"Alat Gambar",h:"Alat ini menghasilkan visual dari kata-kata.",e:"Gambar menghasilkan ilustrasi dari deskripsi teks."},
+{q:"Seorang guru ingin membuat kuis interaktif tanpa menulis kode. Alat Canva AI yang tepat adalah ….",a:["Gambar","Kode","Dokumen","Tulisan Ajaib","Brand Kit"],k:1,t:"Alat Kode",h:"Cari alat untuk membuat pengalaman interaktif.",e:"Kode dapat membantu membuat kuis interaktif tanpa menulis kode sendiri."},
+{q:"Alat Canva AI yang tepat untuk menyusun draf proposal atau creative brief adalah ….",a:["Dokumen","Gambar","Klip Video","Editor Foto AI","Kode"],k:0,t:"Alat Dokumen",h:"Proposal dan creative brief berisi tulisan terstruktur.",e:"Dokumen membantu menyusun draf proposal atau creative brief."},
+{q:"Fitur yang membantu menerapkan warna dan font merek secara otomatis agar desain konsisten adalah ….",a:["Input multimodal","Tulisan Ajaib","Brand Kit","Klip Video","Tanya konten"],k:2,t:"Brand Kit",h:"Pikirkan tempat menyimpan identitas visual sebuah merek.",e:"Brand Kit membantu menjaga konsistensi warna dan font merek."},
+{q:"Untuk meminta saran Canva AI langsung di dalam desain, pengguna dapat ….",a:["mengunduh desain terlebih dahulu","menandai @Canva pada kolom komentar","membuka aplikasi lain","mencetak desain","menghapus desain lalu membuat ulang"],k:1,t:"Meminta saran dalam desain",h:"Cari cara mengajak Canva AI masuk ke percakapan di desain.",e:"Menandai @Canva pada kolom komentar dapat digunakan untuk meminta saran."},
+{q:"Hasil desain dari Canva AI belum sesuai harapan. Tindakan yang paling tepat adalah ….",a:["langsung memakai hasil apa adanya","berhenti menggunakan Canva AI","menyunting hasil di editor atau memperjelas prompt","mengganti akun Canva","menyalin desain milik orang lain"],k:2,t:"Menyunting hasil dan prompt",h:"Hasil awal bisa diperbaiki. Pikirkan hasil dan instruksinya.",e:"Sunting hasil di editor atau perjelas prompt agar hasil lebih sesuai."},
+{q:"Sikap yang tepat dalam menggunakan Canva AI pada pekerjaan DKV adalah ….",a:["menyerahkan seluruh keputusan desain kepada AI","menjadikan AI sebagai alat bantu dan tetap menerapkan prinsip desain","tidak perlu memeriksa hasil karena AI selalu benar","menggunakan merek orang lain tanpa izin","menghindari penyuntingan agar hasil tetap asli"],k:1,t:"Peran desainer dan etika",h:"AI membantu, tetapi siapa yang bertanggung jawab atas keputusan desain?",e:"AI adalah alat bantu. Desainer tetap menerapkan prinsip desain."}
+];
+const S1=[
+["Membuat poster pameran yang bisa diedit","Desain"],["Membuat ilustrasi produk dari deskripsi","Gambar"],["Membuat kuis interaktif","Kode"],
+["Membuat klip pendek bergerak","Klip Video"],["Menyusun draf creative brief","Dokumen"],["Membuat rancangan brosur yang bisa disunting","Desain"],
+["Membuat gambar suasana studio dari prompt","Gambar"],["Menyusun draf proposal kegiatan","Dokumen"],["Membuat kalkulator biaya cetak interaktif","Kode"],
+["Membuat cuplikan video promosi singkat","Klip Video"]].map(([x,k])=>({x,k,t:"Alat "+k}));
+const S2=[
+{x:"AI membantu ideasi dan draf cepat",k:"AI",t:"AI untuk ideasi"},
+{x:"AI membuat contoh awal visual dari prompt",k:"AI",t:"AI untuk draf visual"},
+{x:"Desainer tetap memeriksa hasil",k:"Desainer",t:"Pemeriksaan hasil"},
+{x:"Desainer tetap menerapkan prinsip desain",k:"Desainer",t:"Prinsip desain"},
+{x:"Desainer tetap menggunakan AI secara etis",k:"Desainer",t:"Etika penggunaan AI"}];
+const TOOLS=[["Desain","✎","Desain membuat rancangan visual yang bisa diedit."],["Gambar","▧","Gambar membuat ilustrasi dari deskripsi."],["Dokumen","☰","Dokumen membantu menyusun draf tulisan."],["Kode","‹›","Kode membuat pengalaman interaktif."],["Klip Video","▶","Klip Video membuat video pendek bergerak."]];
+const TH=Object.fromEntries(TOOLS.map(t=>[t[0],t[2]]));
+
+/* ===== PENYIMPANAN: database (api.php) atau cadangan di perangkat ===== */
+const mem={};
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]??null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+const NAME_RE=/^\p{L}+(?: \p{L}+)*$/u;
+const clean=s=>s.trim().replace(/\s+/g," ");
+const key=s=>clean(s).toLocaleLowerCase("id");
+function token(){let t=ls.get("dkv_token");if(!t){t=(crypto.randomUUID?crypto.randomUUID():Date.now()+""+Math.random().toString(16).slice(2)+"xxxxxxxxxxxxxxxx");ls.set("dkv_token",t)}return t}
+const Store={
+ async call(action,data){
+  const r=await fetch(CONFIG.API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,token:token(),bab:CONFIG.BAB,...data})});
+  return r.json();
+ },
+ async register(name){
+  if(CONFIG.API_URL)return this.call("register",{name});
+  const users=JSON.parse(ls.get("dkv_users")||"{}"),k=key(name);
+  if(users[k]&&users[k]!==token())return{ok:false,message:"Nama ini sudah dipakai. Tambahkan nama belakangmu."};
+  users[k]=token();ls.set("dkv_users",JSON.stringify(users));
+  return{ok:true,best:this.localBest(k)};
+ },
+ localBest(k){const a=JSON.parse(ls.get("dkv_att_"+k)||"[]"),b={};a.forEach(x=>{if(!(x.mode in b)||x.score>b[x.mode])b[x.mode]=x.score});return b},
+ async save(name,mode,score,badge,review){
+  if(CONFIG.API_URL)return this.call("save",{name,mode,score,badge,review});
+  const k=key(name),a=JSON.parse(ls.get("dkv_att_"+k)||"[]");
+  a.push({mode,score,badge,review,at:new Date().toISOString()});ls.set("dkv_att_"+k,JSON.stringify(a));
+  return{ok:true,best:this.localBest(k),local:true};
+ }
+};
+
+/* ===== UTIL ===== */
+const $=id=>document.getElementById(id);
+const SCREENS=["gate","menu","quiz","game","results"];
+let me="",best={};
+function show(id){SCREENS.forEach(s=>$(s).hidden=s!==id);$("back").hidden=(id==="gate"||id==="menu");window.scrollTo(0,0)}
+function fb(id,text,type){const b=$(id);b.className="fb "+type;b.replaceChildren();if(type==="good"){const t=document.createElement("span");t.className="tick";t.textContent="✓ ";b.append(t)}b.append(text);b.hidden=false}
+const badgeOf=s=>s<60?"Perunggu":s<85?"Perak":"Emas";
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* ===== MASUK: nama hanya huruf ===== */
+function checkName(){
+ const v=clean($("name").value),m=$("name-msg"),i=$("name");
+ let err="";
+ if(!v)err="";
+ else if(/\d/.test(v))err="Nama tidak boleh memakai angka.";
+ else if(!NAME_RE.test(v))err="Nama hanya boleh huruf dan spasi. Hapus simbol atau tanda baca.";
+ else if(v.length<3)err="Nama terlalu pendek. Tulis minimal 3 huruf.";
+ const ok=!!v&&!err;
+ i.className=v?(ok?"good":"bad"):"";
+ m.className="msg"+(err?" err":ok?" ok":"");
+ m.textContent=err||(ok?"Nama sudah benar. Silakan masuk.":"Hanya huruf dan spasi. Angka dan simbol tidak bisa masuk.");
+ $("enter").disabled=!ok;
+ return ok;
+}
+async function enter(){
+ if(!checkName())return;
+ const name=clean($("name").value),btn=$("enter");
+ btn.disabled=true;btn.textContent="Memeriksa nama...";
+ try{
+  const r=await Store.register(name);
+  if(!r.ok){$("name").className="bad";$("name-msg").className="msg err";$("name-msg").textContent=r.message||"Nama tidak dapat dipakai.";return}
+  me=name;best=r.best||{};ls.set("dkv_name",name);toMenu();
+ }catch(e){
+  $("name-msg").className="msg err";$("name-msg").textContent="Tidak bisa terhubung ke server. Periksa internet lalu coba lagi.";
+ }finally{btn.textContent="Masuk ke studio";btn.disabled=!checkName()}
+}
+function toMenu(){
+ $("hello").textContent="Halo, "+me+"!";
+ const b=$("best");b.replaceChildren();
+ [["quiz","Kuis"],["game","Game"]].forEach(([m,l])=>{const s=document.createElement("span");s.textContent=l+": "+(best[m]!=null?"nilai terbaik "+best[m]:"belum dicoba");b.append(s)});
+ show("menu");
+}
+
+/* ===== KUIS ===== */
+let mode="quiz",order=[],idx=0,tries=0,score=0,rev=new Set(),locked=false;
+function startQuiz(){mode="quiz";order=shuffle(Q);idx=0;score=0;rev=new Set();show("quiz");drawQ()}
+function drawQ(){
+ tries=0;locked=false;const it=order[idx];
+ $("qcount").textContent="Soal "+(idx+1)+" dari 10";
+ $("qprog").setAttribute("aria-valuenow",idx);$("qbar").style.width=idx*10+"%";
+ $("qtext").textContent=(idx+1)+". "+it.q;
+ const box=$("opts");box.replaceChildren();
+ it.a.forEach((t,i)=>{const b=document.createElement("button");b.type="button";b.className="opt";
+  const l=document.createElement("span");l.className="l";l.textContent="ABCDE"[i];
+  const s=document.createElement("span");s.textContent=t;b.append(l,s);b.onclick=()=>ansQ(i,b);box.append(b)});
+ $("qfb").hidden=true;$("qnext").hidden=true;$("qnext").textContent=idx===9?"Lihat hasil":"Soal berikutnya";
+}
+function ansQ(i,btn){
+ if(locked)return;const it=order[idx];tries++;
+ if(i===it.k){score+=tries===1?10:5;locked=true;btn.classList.add("correct");fb("qfb","Benar! "+it.e,"good")}
+ else{
+  rev.add(it.t);btn.classList.add("wrong");btn.disabled=true;
+  if(tries===1){fb("qfb","Petunjuk: "+it.h+" Coba sekali lagi.","hint");return}
+  locked=true;$("opts").children[it.k].classList.add("correct");
+  fb("qfb","Jawaban benar: "+"ABCDE"[it.k]+". "+it.a[it.k]+". "+it.e,"hint");
+ }
+ [...$("opts").children].forEach(b=>b.disabled=true);
+ $("qnext").hidden=false;$("qprog").setAttribute("aria-valuenow",idx+1);$("qbar").style.width=(idx+1)*10+"%";
+}
+$("qnext").onclick=()=>{idx++;idx<10?drawQ():finish()};
+
+/* ===== GAME ===== */
+let deck=[],moved=0;
+function startGame(){mode="game";deck=[...shuffle(S1),...shuffle(S2)];idx=0;score=0;rev=new Set();show("game");drawG()}
+function buildTools(){
+ const box=$("r1");if(box.children.length)return;
+ TOOLS.forEach(([n,ic])=>{const b=document.createElement("button");b.type="button";b.className="tool";b.dataset.tool=n;
+  const i=document.createElement("span");i.className="ic";i.textContent=ic;i.setAttribute("aria-hidden","true");
+  b.append(i,n);b.onclick=()=>ansG(n,b);box.append(b)});
+}
+function drawG(){
+ buildTools();tries=0;locked=false;const r1=idx<10,it=deck[idx];
+ $("r1").hidden=!r1;$("r2").hidden=r1;
+ $("gcount").textContent=r1?"Ronde 1 · kartu "+(idx+1)+" dari 10":"Ronde 2 · kartu "+(idx-9)+" dari 5";
+ $("gprog").setAttribute("aria-valuenow",idx);$("gbar").style.width=idx/15*100+"%";
+ $("ginfo").textContent=r1?"Seret kartu ke alat yang tepat. Di ponsel, ketuk kartu lalu ketuk alatnya.":"Geser kartu ke kiri untuk “Dikerjakan AI”, ke kanan untuk “Tetap tugas desainer”. Tombol di bawah juga bisa dipakai.";
+ const c=$("card");c.textContent=it.x;c.className="card";c.style.transform="";c.setAttribute("aria-label",it.x);
+ document.querySelectorAll(".tool").forEach(b=>{b.disabled=false;b.className="tool"});
+ document.querySelectorAll("[data-side]").forEach(b=>b.disabled=false);
+ $("laneL").className="";$("laneR").className="";
+ $("gfb").hidden=true;$("gnext").hidden=true;$("gnext").textContent=idx===14?"Lihat hasil":"Kartu berikutnya";
+}
+function ansG(v,btn){
+ if(locked)return;const r1=idx<10,it=deck[idx];tries++;
+ if(v===it.k){
+  score+=(r1?5:10)*(tries===1?1:.5);locked=true;btn.classList.add("correct");
+  fb("gfb","Tepat! "+(r1?TH[it.k]:it.k==="AI"?"AI dapat membantu membuat ide atau draf awal.":"Keputusan dan tanggung jawab akhir tetap pada desainer."),"good");
+ }else{
+  rev.add(it.t);btn.classList.add("wrong");
+  if(tries===1){setTimeout(()=>btn.classList.remove("wrong"),400);
+   fb("gfb",(r1?"Petunjuk: "+TH[v]+" Pikirkan jenis hasil yang diminta.":"Petunjuk: bedakan membuat draf cepat dengan memeriksa dan mengambil keputusan akhir.")+" Coba sekali lagi.","hint");return}
+  locked=true;
+  document.querySelector(r1?'.tool[data-tool="'+it.k+'"]':'[data-side="'+it.k+'"]').classList.add("correct");
+  fb("gfb","Jawaban benar: "+it.k+". "+(r1?TH[it.k]:"AI membantu membuat draf. Desainer memeriksa, menerapkan prinsip desain, dan menjaga etika."),"hint");
+ }
+ document.querySelectorAll(".tool,[data-side]").forEach(b=>b.disabled=true);
+ $("gnext").hidden=false;$("gprog").setAttribute("aria-valuenow",idx+1);$("gbar").style.width=(idx+1)/15*100+"%";
+}
+document.querySelectorAll("[data-side]").forEach(b=>b.onclick=()=>ansG(b.dataset.side,b));
+$("gnext").onclick=()=>{idx++;idx<15?drawG():finish()};
+
+/* seret kartu dengan pointer (jari maupun mouse) */
+(function(){
+ const c=$("card");let sx=0,sy=0,on=false;
+ c.addEventListener("pointerdown",e=>{if(locked)return;on=true;moved=0;sx=e.clientX;sy=e.clientY;c.setPointerCapture(e.pointerId);c.classList.add("drag")});
+ c.addEventListener("pointermove",e=>{
+  if(!on)return;const dx=e.clientX-sx,dy=e.clientY-sy;moved=Math.max(moved,Math.hypot(dx,dy));
+  c.style.transform="translate("+dx+"px,"+dy+"px) rotate("+dx/28+"deg)";
+  if(idx<10){document.querySelectorAll(".tool").forEach(t=>t.classList.remove("over"));
+   const t=under(e);if(t)t.classList.add("over")}
+  else{$("laneL").className=dx<-50?"on":"";$("laneR").className=dx>50?"on":""}
+ });
+ function under(e){c.style.visibility="hidden";const el=document.elementFromPoint(e.clientX,e.clientY);c.style.visibility="";return el&&el.closest?el.closest(".tool"):null}
+ c.addEventListener("pointerup",e=>{
+  if(!on)return;on=false;c.classList.remove("drag");const dx=e.clientX-sx;
+  document.querySelectorAll(".tool").forEach(t=>t.classList.remove("over"));
+  if(idx<10){
+   if(moved<8){c.classList.toggle("sel");c.style.transform="";return}
+   const t=under(e);c.style.transform="";if(t)ansG(t.dataset.tool,t);
+  }else{
+   $("laneL").className="";$("laneR").className="";c.style.transform="";
+   if(Math.abs(dx)>80){const s=dx<0?"AI":"Desainer";ansG(s,document.querySelector('[data-side="'+s+'"]'))}
+  }
+ });
+ c.addEventListener("pointercancel",()=>{on=false;c.classList.remove("drag");c.style.transform=""});
+ c.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();c.classList.toggle("sel")}});
+})();
+
+/* ===== HASIL + SIMPAN ===== */
+async function finish(){
+ const s=Math.round(score),b=badgeOf(s),list=[...rev];
+ show("results");
+ $("rmode").textContent=mode==="quiz"?"Hasil kuis":"Hasil game";
+ $("rscore").textContent=s+" / 100";
+ $("rbadge").className="badge "+b;$("rbadge").replaceChildren(document.createElement("i"),"Lencana "+b);
+ $("rwho").textContent=me+" · "+new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+ const ul=$("rrev");ul.replaceChildren();
+ if(!list.length){const li=document.createElement("li");li.textContent="Hebat! Tidak ada materi yang perlu diulang.";ul.append(li)}
+ else list.forEach(t=>{const li=document.createElement("li");li.textContent=t;ul.append(li)});
+ const sv=$("rsave");sv.style.color="";sv.textContent="Menyimpan nilai...";
+ try{
+  const r=await Store.save(me,mode,s,b,list);
+  if(r.ok){best=r.best||best;sv.style.color="var(--ok)";sv.textContent=r.local?"Nilai tersimpan di perangkat ini (mode uji coba).":"Nilai tersimpan di database."}
+  else throw 0;
+ }catch(e){sv.style.color="var(--no)";sv.textContent="Nilai belum tersimpan. Periksa internet, lalu tekan Ulangi."}
+}
+$("retry").onclick=()=>mode==="quiz"?startQuiz():startGame();
+
+/* ===== NAVIGASI ===== */
+$("name").addEventListener("input",checkName);
+$("name").addEventListener("keydown",e=>{if(e.key==="Enter")enter()});
+$("enter").onclick=enter;
+$("go-quiz").onclick=startQuiz;$("go-game").onclick=startGame;
+$("back").onclick=toMenu;
+$("logout").onclick=()=>{me="";$("name").value="";checkName();show("gate")};
+$("name").value=ls.get("dkv_name")||"";checkName();
+</script>
+</body>
+</html>
