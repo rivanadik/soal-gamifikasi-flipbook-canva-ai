@@ -103,3 +103,4 @@ SELECT s.nama,
 FROM siswa s LEFT JOIN progres p ON p.siswa_id = s.id
 GROUP BY s.id, s.nama
 ORDER BY s.nama;
+

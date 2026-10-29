@@ -33,3 +33,4 @@ echo json_encode([
     'timestamp' => date(DATE_ATOM),
     'error'     => $error,
 ]);
+

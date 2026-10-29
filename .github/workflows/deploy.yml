@@ -123,3 +123,4 @@ jobs:
             docker compose logs --tail=50 app
             docker logout ghcr.io || true
             exit 1
+
